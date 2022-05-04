@@ -211,7 +211,7 @@
                 {
                     "name": "",
                     "id": "94e05670-cb4c-4a20-9d0d-cef592768b51",
-                    "path": "<Keyboard>/leftShift",
+                    "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -242,6 +242,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SpawnComets",
+                    "type": "Button",
+                    "id": "63af5ab0-0fe5-42a2-9e3a-8cf8148511df",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -264,6 +273,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "WarpToCenter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b114e7db-2697-49ed-ae14-b19a78d6734f",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpawnComets",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

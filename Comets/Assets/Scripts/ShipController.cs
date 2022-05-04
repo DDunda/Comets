@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
-public class ShipController : MonoBehaviour, ShipControls.IShipActions, ShipControls.IShipDebugActions
+
+public class ShipController : MonoBehaviour, IDamageable, ShipControls.IShipActions, ShipControls.IShipDebugActions
 {
 	public Rigidbody2D shipRigidbody;
 	public float thrustAcceleration = 1f;
@@ -19,9 +21,14 @@ public class ShipController : MonoBehaviour, ShipControls.IShipActions, ShipCont
 
 	public float maxHealth = 100;
 	public float health;
+	public TextMeshProUGUI healthText;
 
 	public float angularAcceleration = 0;
 	public Vector2 acceleration = Vector2.zero;
+
+	public GameObject[] debugCometPrefabs;
+	public float debugSpawnRadius;
+	public int debugSpawnAmount;
 
 	private ShipControls controls;
 
@@ -34,12 +41,14 @@ public class ShipController : MonoBehaviour, ShipControls.IShipActions, ShipCont
 
 
 	void OnEnable() {
-		controls.Enable();
+		controls.Ship.Enable();
+		controls.ShipDebug.Enable();
 	}
 
 
 	void OnDisable() {
-		controls.Disable();
+		controls.Ship.Disable();
+		controls.ShipDebug.Disable();
 	}
 
 
@@ -64,11 +73,13 @@ public class ShipController : MonoBehaviour, ShipControls.IShipActions, ShipCont
 		angularAcceleration = -controls.Ship.Turn.ReadValue<float>() * turnAcceleration;
 
 		if(controls.Ship.Accelerate.ReadValue<float>() == 1) {
-			acceleration = (Vector2)shipRigidbody.transform.up * thrustAcceleration;
+			acceleration = shipRigidbody.transform.up * thrustAcceleration;
 		}
 		else if(controls.Ship.Brake.ReadValue<float>() == 1) {
-			acceleration = -(Vector2)shipRigidbody.velocity.normalized * brakeAcceleration;
+			acceleration = -shipRigidbody.velocity.normalized * brakeAcceleration;
 		}
+
+		healthText.text = $"Health: {Mathf.Round(health / maxHealth * 100)}%";
     }
 
 
@@ -79,8 +90,8 @@ public class ShipController : MonoBehaviour, ShipControls.IShipActions, ShipCont
 	}
 
 
-	public void OnDamage((Collision2D collision, BulletManager bullet) dat) {
-		health -= dat.bullet.damage;
+	public void DoDamage(float damage, GameObject source) {
+		health -= damage;
 	}
 
 
@@ -131,5 +142,18 @@ public class ShipController : MonoBehaviour, ShipControls.IShipActions, ShipCont
 	public void OnWarpToCenter(InputAction.CallbackContext context) {
 		shipRigidbody.position = Vector2.zero;
 		shipRigidbody.rotation = 0;
+	}
+
+
+	public void OnSpawnComets(InputAction.CallbackContext context) {
+		for(int i = 0; i < debugSpawnAmount; i++) {
+			int randType = Random.Range(0, debugCometPrefabs.Length);
+			GameObject child = Instantiate(
+				debugCometPrefabs[randType],
+				transform.position + (Vector3)Utility.RandomWithinCircle(5, debugSpawnRadius),
+				debugCometPrefabs[randType].transform.rotation
+			);
+			child.GetComponent<Rigidbody2D>().velocity = Random.insideUnitCircle * Random.Range(0, 5);
+		}
 	}
 }

@@ -6,7 +6,6 @@ public class BulletManager : MonoBehaviour
 {
 	public float damage = 1f;
 	public float lifetime = 10f;
-	public object customData = null;
 
 
 	void Start()
@@ -18,10 +17,11 @@ public class BulletManager : MonoBehaviour
 	}
 
 
-	void OnCollisionEnter2D(Collision2D collision) {
-		if(collision.gameObject.tag == "Damageable") {
-			(Collision2D collision, BulletManager bullet) package = (collision, this);
-			collision.gameObject.SendMessageUpwards("OnDamage", package);
+	void OnTriggerEnter2D(Collider2D collider) {
+		if(collider.gameObject.tag == "LoadArea") return;
+		IDamageable damageListener;
+		if(collider.gameObject.TryGetComponent<IDamageable>(out damageListener)) {
+			damageListener.DoDamage(damage, gameObject);
 		}
 		GameObject.Destroy(gameObject);
 	}
