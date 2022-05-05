@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ShipSuction : MonoBehaviour
@@ -9,6 +7,9 @@ public class ShipSuction : MonoBehaviour
 	public float radius;
 	public float attractionStrength = 2f;
 
+	[System.NonSerialized]
+	public int maxAmount = 0;
+
     void Start()
     {
         area.radius = radius;
@@ -16,6 +17,9 @@ public class ShipSuction : MonoBehaviour
 
 	void OnTriggerStay2D(Collider2D collider)
     {
+		ResourceScript resource = collider.gameObject.GetComponent<ResourceScript>();
+		if(resource.amount > maxAmount) return;
+
 		Rigidbody2D rb = collider.attachedRigidbody;
 
 		rb.velocity -= (rb.position - shipRigidbody.position).normalized * attractionStrength * Time.deltaTime;

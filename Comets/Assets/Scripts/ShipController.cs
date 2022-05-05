@@ -18,6 +18,7 @@ public class ShipController : MonoBehaviour, IDamageable, ShipControls.IShipActi
 	public GameObject bulletPrefab;
 	public Vector2 bulletOffset = new Vector2(0, 1);
 	public Vector2 bulletVelocity = new Vector2(0, 5);
+	public float bulletCooldown;
 
 	public float maxHealth = 100;
 	public float health;
@@ -31,7 +32,8 @@ public class ShipController : MonoBehaviour, IDamageable, ShipControls.IShipActi
 	public int debugSpawnAmount;
 
 	private ShipControls controls;
-
+	private float timeLastFired = 0;
+	
 
 	void Awake() {
 		controls = new ShipControls();
@@ -120,18 +122,21 @@ public class ShipController : MonoBehaviour, IDamageable, ShipControls.IShipActi
 
 
 	public void OnFire(InputAction.CallbackContext context) {
-		if(context.phase == InputActionPhase.Started) {
-			GameObject bullet = Instantiate(
-				bulletPrefab,
-				transform.position + transform.TransformVector(bulletOffset),
-				transform.rotation
-			);
-			bullet.GetComponent<Rigidbody2D>().velocity = shipRigidbody.velocity + (Vector2)transform.TransformDirection(bulletVelocity);
-		}
+		if(!context.started) return;
+		if(Time.time - timeLastFired < bulletCooldown) return;
+		timeLastFired = Time.time;
+		GameObject bullet = Instantiate(
+			bulletPrefab,
+			transform.position + transform.TransformVector(bulletOffset),
+			transform.rotation
+		);
+		bullet.GetComponent<Rigidbody2D>().velocity = shipRigidbody.velocity + (Vector2)transform.TransformDirection(bulletVelocity);
 	}
 
 	
 	public void OnFreezeSpeed(InputAction.CallbackContext context) {
+		if(!context.started) return;
+
 		shipRigidbody.velocity = Vector2.zero;
 		shipRigidbody.angularVelocity = 0;
 		acceleration = Vector2.zero;
@@ -140,12 +145,16 @@ public class ShipController : MonoBehaviour, IDamageable, ShipControls.IShipActi
 
 
 	public void OnWarpToCenter(InputAction.CallbackContext context) {
+		if(!context.started) return;
+
 		shipRigidbody.position = Vector2.zero;
 		shipRigidbody.rotation = 0;
 	}
 
 
 	public void OnSpawnComets(InputAction.CallbackContext context) {
+		if(!context.started) return;
+
 		for(int i = 0; i < debugSpawnAmount; i++) {
 			int randType = Random.Range(0, debugCometPrefabs.Length);
 			GameObject child = Instantiate(

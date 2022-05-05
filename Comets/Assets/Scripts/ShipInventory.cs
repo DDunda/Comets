@@ -7,39 +7,37 @@ public class ShipInventory : MonoBehaviour
 	[System.Serializable]
 	public class ResourcePair {
 		public ResourceType type;
-		public float amount;
+		public int amount;
 
-		public ResourcePair(ResourceType type, float amount = 0) {
+		public ResourcePair(ResourceType type, int amount = 0) {
 			this.type = type;
 			this.amount = amount;
 		}
 	}
 
 	public TextMeshProUGUI cargoText;
+	public ShipSuction attractor;
 
 	public List<ResourcePair> resources = new List<ResourcePair>();
-	public float maxResources;
+	public int maxResources;
 	public List<Powerup> powerups = new List<Powerup>();
 	public int maxPowerups;
 
 
-	private float resourceCount;
+	private int resourceCount = 0;
 
 
-	public void Start() {
+	public void Update() {
 		resourceCount = 0;
 		foreach(var pair in resources) {
 			resourceCount += pair.amount;
 		}
-	}
-
-
-	public void Update() {
+		attractor.maxAmount = maxResources - resourceCount;
 		cargoText.text = $"Cargo: {Mathf.Round(resourceCount / maxResources * 100)}%";
 	}
 
 
-	public bool CollectResource(ResourceType type, float amount) {
+	public bool CollectResource(ResourceType type, int amount) {
 		if (resourceCount + amount > maxResources) return false;
 
 		int slot = resources.FindIndex(i => {return i.type == type;});
@@ -48,7 +46,6 @@ public class ShipInventory : MonoBehaviour
 		} else {
 			resources[slot].amount += amount;
 		}
-		resourceCount += amount;
 
 		return true;
 	}
@@ -59,5 +56,18 @@ public class ShipInventory : MonoBehaviour
 
 		powerups.Add(powerup);
 		return true;
+	}
+
+	public float TakeResource(ResourceType type, int amount) {
+		int slot = resources.FindIndex(i => {return i.type == type;});
+		if(slot == -1) return 0;
+		if(amount >= resources[slot].amount) {
+			amount = resources[slot].amount;
+			resources.RemoveAt(slot);
+		} else {
+			resources[slot].amount -= amount;
+		}
+
+		return amount;
 	}
 }

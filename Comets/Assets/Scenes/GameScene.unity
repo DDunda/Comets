@@ -1155,14 +1155,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1904098897, guid: fd2e69c0825ed08459fe3a942db4671c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2414980141607670838, guid: fd2e69c0825ed08459fe3a942db4671c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8148036625384908856, guid: fd2e69c0825ed08459fe3a942db4671c, type: 3}
       propertyPath: cargoText
       value: 
@@ -1171,22 +1163,6 @@ PrefabInstance:
       propertyPath: healthText
       value: 
       objectReference: {fileID: 1929445034}
-    - target: {fileID: 8148036625389810664, guid: fd2e69c0825ed08459fe3a942db4671c, type: 3}
-      propertyPath: debugSpawnAmount
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8148036625389810664, guid: fd2e69c0825ed08459fe3a942db4671c, type: 3}
-      propertyPath: debugSpawnRadius
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8148036625389810664, guid: fd2e69c0825ed08459fe3a942db4671c, type: 3}
-      propertyPath: debugCometPrefabs.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8148036625389810664, guid: fd2e69c0825ed08459fe3a942db4671c, type: 3}
-      propertyPath: debugCometPrefabs.Array.data[0]
-      value: 
-      objectReference: {fileID: 3164087165264691906, guid: 71c22d7dcec9ddf4d94b074478b54eaf, type: 3}
     - target: {fileID: 8148036625389810665, guid: fd2e69c0825ed08459fe3a942db4671c, type: 3}
       propertyPath: m_RootOrder
       value: 0

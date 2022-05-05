@@ -88,6 +88,7 @@ public class CometScript : MonoBehaviour, IDamageable
 
     void Start() {
         cometRenderer.sprite = sprites.SelectRandom();
+		CometCleaner.allComets.Add(gameObject);
     }
 
 
