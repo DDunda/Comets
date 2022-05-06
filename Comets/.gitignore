@@ -3,6 +3,7 @@ Library/*
 profiles/*
 Assets/UnityVS/*
 Assets/UnityVS.meta
+UserSettings/
  
 *.pidb
 *.userprefs

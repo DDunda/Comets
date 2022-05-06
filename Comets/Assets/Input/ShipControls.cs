@@ -233,7 +233,7 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""94e05670-cb4c-4a20-9d0d-cef592768b51"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -264,6 +264,15 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpawnComets"",
+                    ""type"": ""Button"",
+                    ""id"": ""63af5ab0-0fe5-42a2-9e3a-8cf8148511df"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -288,6 +297,17 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
                     ""action"": ""WarpToCenter"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b114e7db-2697-49ed-ae14-b19a78d6734f"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpawnComets"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -304,6 +324,7 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
         m_ShipDebug = asset.FindActionMap("Ship (Debug)", throwIfNotFound: true);
         m_ShipDebug_FreezeSpeed = m_ShipDebug.FindAction("FreezeSpeed", throwIfNotFound: true);
         m_ShipDebug_WarpToCenter = m_ShipDebug.FindAction("WarpToCenter", throwIfNotFound: true);
+        m_ShipDebug_SpawnComets = m_ShipDebug.FindAction("SpawnComets", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -422,12 +443,14 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
     private IShipDebugActions m_ShipDebugActionsCallbackInterface;
     private readonly InputAction m_ShipDebug_FreezeSpeed;
     private readonly InputAction m_ShipDebug_WarpToCenter;
+    private readonly InputAction m_ShipDebug_SpawnComets;
     public struct ShipDebugActions
     {
         private @ShipControls m_Wrapper;
         public ShipDebugActions(@ShipControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @FreezeSpeed => m_Wrapper.m_ShipDebug_FreezeSpeed;
         public InputAction @WarpToCenter => m_Wrapper.m_ShipDebug_WarpToCenter;
+        public InputAction @SpawnComets => m_Wrapper.m_ShipDebug_SpawnComets;
         public InputActionMap Get() { return m_Wrapper.m_ShipDebug; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -443,6 +466,9 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
                 @WarpToCenter.started -= m_Wrapper.m_ShipDebugActionsCallbackInterface.OnWarpToCenter;
                 @WarpToCenter.performed -= m_Wrapper.m_ShipDebugActionsCallbackInterface.OnWarpToCenter;
                 @WarpToCenter.canceled -= m_Wrapper.m_ShipDebugActionsCallbackInterface.OnWarpToCenter;
+                @SpawnComets.started -= m_Wrapper.m_ShipDebugActionsCallbackInterface.OnSpawnComets;
+                @SpawnComets.performed -= m_Wrapper.m_ShipDebugActionsCallbackInterface.OnSpawnComets;
+                @SpawnComets.canceled -= m_Wrapper.m_ShipDebugActionsCallbackInterface.OnSpawnComets;
             }
             m_Wrapper.m_ShipDebugActionsCallbackInterface = instance;
             if (instance != null)
@@ -453,6 +479,9 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
                 @WarpToCenter.started += instance.OnWarpToCenter;
                 @WarpToCenter.performed += instance.OnWarpToCenter;
                 @WarpToCenter.canceled += instance.OnWarpToCenter;
+                @SpawnComets.started += instance.OnSpawnComets;
+                @SpawnComets.performed += instance.OnSpawnComets;
+                @SpawnComets.canceled += instance.OnSpawnComets;
             }
         }
     }
@@ -468,5 +497,6 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
     {
         void OnFreezeSpeed(InputAction.CallbackContext context);
         void OnWarpToCenter(InputAction.CallbackContext context);
+        void OnSpawnComets(InputAction.CallbackContext context);
     }
 }
