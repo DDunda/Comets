@@ -133,12 +133,17 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8148036625389810664, guid: fd2e69c0825ed08459fe3a942db4671c, type: 3}
   m_PrefabInstance: {fileID: 8148036625384908851}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1415267355}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64be9ce198a1ab2498023d3b7e231161, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!212 &66271655 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3361546189209185627, guid: fd2e69c0825ed08459fe3a942db4671c, type: 3}
+  m_PrefabInstance: {fileID: 8148036625384908851}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &216826128
 GameObject:
   m_ObjectHideFlags: 0
@@ -303,7 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ca71e14cc3a8e3418c9608c2e117482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipRigidBody: {fileID: 8148036625384908852}
+  cameraRigidbody: {fileID: 519420033}
   chunkSize: 10
   clearRadius: 80
   generateSize: 4
@@ -547,21 +552,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &519420033
-MonoBehaviour:
+--- !u!50 &519420033
+Rigidbody2D:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c0c965d4b28aee4d967c61cb2b19dc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraTransform: {fileID: 519420032}
-  shipController: {fileID: 30137307}
-  smoothingFactor: 5
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &803220165
 GameObject:
   m_ObjectHideFlags: 0
@@ -844,6 +855,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1204950159}
   m_CullTransparentMesh: 1
+--- !u!1 &1415267355 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8148036625389810666, guid: fd2e69c0825ed08459fe3a942db4671c, type: 3}
+  m_PrefabInstance: {fileID: 8148036625384908851}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1531015004
 GameObject:
   m_ObjectHideFlags: 0
@@ -1163,6 +1179,14 @@ PrefabInstance:
       propertyPath: healthText
       value: 
       objectReference: {fileID: 1929445034}
+    - target: {fileID: 8148036625389810664, guid: fd2e69c0825ed08459fe3a942db4671c, type: 3}
+      propertyPath: engineSprite
+      value: 
+      objectReference: {fileID: 66271655}
+    - target: {fileID: 8148036625389810664, guid: fd2e69c0825ed08459fe3a942db4671c, type: 3}
+      propertyPath: explosionParticles
+      value: 
+      objectReference: {fileID: 420750666292363800, guid: 30f9aacb5f729074495840e6e5349ec5, type: 3}
     - target: {fileID: 8148036625389810665, guid: fd2e69c0825ed08459fe3a942db4671c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1213,8 +1237,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd2e69c0825ed08459fe3a942db4671c, type: 3}
---- !u!50 &8148036625384908852 stripped
-Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: 8148036625389810669, guid: fd2e69c0825ed08459fe3a942db4671c, type: 3}
-  m_PrefabInstance: {fileID: 8148036625384908851}
+--- !u!114 &8148036625384908858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415267355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c0c965d4b28aee4d967c61cb2b19dc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraRigidbody: {fileID: 519420033}
+  shipController: {fileID: 30137307}
+  smoothingFactor: 5
+  dragAfterDestruction: 3

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ChunkManager : MonoBehaviour
 {
-	public Rigidbody2D shipRigidBody;
+	public Rigidbody2D cameraRigidbody;
 
 	public int chunkSize;
 	public List<(int x, int y)> chunks = new List<(int x, int y)>();
@@ -82,7 +82,7 @@ public class ChunkManager : MonoBehaviour
 
 			float shortestDistance = float.PositiveInfinity;
 			foreach(Vector2 corner in Utility.corners) {
-				float dist = Vector2.Distance(shipRigidBody.position, (pos + corner) * chunkSize);
+				float dist = Vector2.Distance(cameraRigidbody.position, (pos + corner) * chunkSize);
 				if (dist < shortestDistance)
 					shortestDistance = dist;
 			}
@@ -92,7 +92,7 @@ public class ChunkManager : MonoBehaviour
 			}
 		}
 
-		(int x, int y) shipChunk = (Mathf.RoundToInt(shipRigidBody.position.x / chunkSize), Mathf.RoundToInt(shipRigidBody.position.y / chunkSize));
+		(int x, int y) shipChunk = (Mathf.RoundToInt(cameraRigidbody.position.x / chunkSize), Mathf.RoundToInt(cameraRigidbody.position.y / chunkSize));
 
 		for(int y = -generateSize; y <= generateSize; y++) {
 			for(int x = -generateSize; x <= generateSize; x++) {
@@ -109,9 +109,9 @@ public class ChunkManager : MonoBehaviour
 	void OnDrawGizmos() {
 		Gizmos.color = Color.green;
 
-		Utility.DrawCircleGizmo(shipRigidBody.position, clearRadius);
+		Utility.DrawCircleGizmo(cameraRigidbody.position, clearRadius);
 
-		(int x, int y) shipChunk = (Mathf.RoundToInt(shipRigidBody.position.x / chunkSize), Mathf.RoundToInt(shipRigidBody.position.y / chunkSize));
+		(int x, int y) shipChunk = (Mathf.RoundToInt(cameraRigidbody.position.x / chunkSize), Mathf.RoundToInt(cameraRigidbody.position.y / chunkSize));
 
 		Utility.DrawSquareGizmo(
 			new Vector2(shipChunk.x - generateSize, shipChunk.y - generateSize) * chunkSize,

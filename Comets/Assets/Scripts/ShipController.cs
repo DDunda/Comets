@@ -14,6 +14,7 @@ public class ShipController : MonoBehaviour, IDamageable, ShipControls.IShipActi
 	public float maxAngularVelocity;
 
 	public ParticleSystem engineParticles;
+	public SpriteRenderer engineSprite;
 
 	public GameObject bulletPrefab;
 	public Vector2 bulletOffset = new Vector2(0, 1);
@@ -24,12 +25,16 @@ public class ShipController : MonoBehaviour, IDamageable, ShipControls.IShipActi
 	public float health;
 	public TextMeshProUGUI healthText;
 
-	public float angularAcceleration = 0;
-	public Vector2 acceleration = Vector2.zero;
+	public GameObject explosionParticles;
 
 	public GameObject[] debugCometPrefabs;
 	public float debugSpawnRadius;
 	public int debugSpawnAmount;
+
+	[System.NonSerialized]
+	public float angularAcceleration = 0;
+	[System.NonSerialized]
+	public Vector2 acceleration = Vector2.zero;
 
 	private ShipControls controls;
 	private float timeLastFired = 0;
@@ -63,14 +68,6 @@ public class ShipController : MonoBehaviour, IDamageable, ShipControls.IShipActi
 
     void Update()
     {
-
-		if(controls.Ship.Accelerate.WasPressedThisFrame()) {
-			engineParticles.Play();
-		}
-		if(controls.Ship.Accelerate.WasReleasedThisFrame()) {
-        	engineParticles.Stop();
-		}
-
 		acceleration = Vector2.zero;
 		angularAcceleration = -controls.Ship.Turn.ReadValue<float>() * turnAcceleration;
 
@@ -92,8 +89,25 @@ public class ShipController : MonoBehaviour, IDamageable, ShipControls.IShipActi
 	}
 
 
+	void Explode() {
+		GameObject explosion = Instantiate(explosionParticles, transform.position, transform.rotation);
+		Rigidbody2D rb;
+		if(explosion.TryGetComponent<Rigidbody2D>(out rb)) {
+			rb.velocity = shipRigidbody.velocity;
+		}
+
+		engineParticles.transform.parent = null;
+		engineParticles.Stop();
+		ParticleSystem.MainModule main = engineParticles.GetComponent<ParticleSystem>().main;
+		main.stopAction = ParticleSystemStopAction.Destroy;
+
+		Destroy(gameObject);
+	}
+
+
 	public void DoDamage(float damage, GameObject source) {
 		health -= damage;
+		if(health <= 0) Explode();
 	}
 
 
@@ -102,10 +116,11 @@ public class ShipController : MonoBehaviour, IDamageable, ShipControls.IShipActi
 		{
 			case InputActionPhase.Started:
 				engineParticles.Play();
+				engineSprite.enabled = true;
 				break;
-			case InputActionPhase.Performed:
 			case InputActionPhase.Canceled:
         		engineParticles.Stop();
+				engineSprite.enabled = false;
 				break;
 		}
 	}

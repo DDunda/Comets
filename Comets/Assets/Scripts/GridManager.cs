@@ -1,11 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
 	public Camera shipCamera;
-	public Transform shipTransform;
 	public GameObject pointPrefab;
 	public float pointSpacing = 1f;
 	public float ZPosition = 1f;
