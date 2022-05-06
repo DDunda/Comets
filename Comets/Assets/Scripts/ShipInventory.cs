@@ -33,7 +33,7 @@ public class ShipInventory : MonoBehaviour
 			resourceCount += pair.amount;
 		}
 		attractor.maxAmount = maxResources - resourceCount;
-		cargoText.text = $"Cargo: {Mathf.Round(resourceCount / maxResources * 100)}%";
+		cargoText.text = $"Cargo: {Mathf.Round(resourceCount / (float)maxResources * 100f)}%";
 	}
 
 
