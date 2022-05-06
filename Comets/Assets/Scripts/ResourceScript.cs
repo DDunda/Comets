@@ -15,10 +15,7 @@ public class ResourceScript : MonoBehaviour
 
 	void OnTriggerEnter2D(Collider2D collider) {
 		ICollector collector;
-		if(!collider.gameObject.TryGetComponent(out collector)) {
-			Debug.Log("No collector!");
-			return;
-		}
+		if(!collider.gameObject.TryGetComponent(out collector)) return;
 		if(!collector.CollectResource(type, amount)) return;
 
 		Destroy(gameObject);

@@ -94,7 +94,6 @@ public class CometScript : MonoBehaviour, IDamageable
 
 	public GameObject SpawnChild(GameObject prefab) {
 		Vector2 randomPos = Utility.RandomWithinCircle(spawnRadius);
-		Debug.Log(randomPos);
 
 		GameObject child = Instantiate(prefab, transform.position + (Vector3)randomPos, transform.rotation);
 
