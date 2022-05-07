@@ -101,6 +101,7 @@ public class ShipController : MonoBehaviour, IDamageable, ShipControls.IShipActi
 
     void Update()
     {
+		acceleration = Vector2.zero;
 		if(!inputEnabled) return;
 		if(Mouse.current.delta.ReadValue().magnitude > 0) {
 			Vector2 mouseDelta = GetMouseDelta();
@@ -110,7 +111,6 @@ public class ShipController : MonoBehaviour, IDamageable, ShipControls.IShipActi
 				targetDirection = Vector2.zero;
 			}
 		}
-		acceleration = Vector2.zero;
 
 		if(controls.Ship.Accelerate.ReadValue<float>() == 1) {
 			acceleration = shipRigidbody.transform.up * thrustAcceleration;
