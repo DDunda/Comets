@@ -4,15 +4,87 @@ using UnityEngine;
 
 public class ChunkManager : MonoBehaviour
 {
-	public Rigidbody2D cameraRigidbody;
+	[System.Serializable]
+	public class Chunk {
+		public List<GameObject> stars = new List<GameObject>();
+		public Vector2Int coords;
+		public ChunkManager manager;
+		public bool populated = false;
 
-	public int chunkSize;
-	public List<(int x, int y)> chunks = new List<(int x, int y)>();
+		private Vector2 worldCoords {get => coords * manager.chunkSize;}
 
-	public float clearRadius;
-	public int generateSize;
 
-	public AnimationCurve cometDensity;
+		public Chunk(Vector2Int coords, ChunkManager manager) {
+			this.coords = coords;
+			this.manager = manager;
+		}
+
+
+		public Chunk(int x, int y, ChunkManager manager) {
+			this.coords = new Vector2Int(x,y);
+			this.manager = manager;
+		}
+
+
+		~Chunk() {
+			DeleteStars();
+		}
+
+
+		public void DeleteStars() {
+			foreach(var star in stars) {
+				Destroy(star);
+			}
+			stars.Clear();
+		}
+
+
+		void SpawnStar(Vector2 pos) {
+			GameObject prefab = manager.stars.SelectRandom();
+			GameObject star = Instantiate(prefab, new Vector3(pos.x, pos.y, manager.starDepth), prefab.transform.rotation);
+
+			star.transform.localScale *= manager.starScale;
+			star.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, manager.starBrightness);
+
+			stars.Add(star);
+		}
+
+		
+		void SpawnSomething(Vector2 pos) {
+			ObjectConfig config = manager.cometConfig.SelectRandom(pos.magnitude);
+			GameObject obj = Instantiate(config.prefab, pos, config.prefab.transform.rotation);
+
+			obj.transform.localScale *= config.scale;
+			obj.GetComponent<Rigidbody2D>().velocity = Utility.RandomDirection() * config.velocity;
+		}
+
+
+		public void PopulateStars() {
+			float numStarsf = manager.starsPerSector * manager.sectorMultiplier;
+			int numStars = Mathf.FloorToInt(numStarsf) + (numStarsf % 1 > Random.value ? 1 : 0);
+
+			for (int i = 0; i < numStars; i++) {
+				Vector2 starPos = worldCoords + Utility.RandomWithinBox(manager.chunkSize, manager.chunkSize);
+				SpawnStar(starPos);
+			}
+		}
+
+
+		public void Populate() {
+			Vector2 chunkCenter = worldCoords + Vector2.one / 2f * manager.chunkSize;
+
+			float numCometsf = manager.cometsPerSector.Evaluate(chunkCenter.magnitude) * manager.sectorMultiplier;
+			int numComets = Mathf.FloorToInt(numCometsf) + (numCometsf % 1 > Random.value ? 1 : 0);
+
+			for (int i = 0; i < numComets; i++) {
+				Vector2 cometPos = worldCoords + Utility.RandomWithinBox(manager.chunkSize, manager.chunkSize);
+				SpawnSomething(cometPos);
+			}
+
+			populated = true;
+		}
+	}
+
 
 	[System.Serializable]
 	public class ObjectConfig {
@@ -31,6 +103,7 @@ public class ChunkManager : MonoBehaviour
 		}
 
 		public ProbabilityPair[] objects;
+
 
 		public ObjectConfig SelectRandom(float distance) {
 			float weightSum = 0;
@@ -53,55 +126,72 @@ public class ChunkManager : MonoBehaviour
 		}
 	}
 
+
+	public List<Chunk> chunks = new List<Chunk>();
+	public int chunkSize;
+	public float sectorArea;
+
+	public int cometGenerationSize;
+	public int starGenerationSize;
+	public float clearRadius;
+
+	public ParticleSystem.MinMaxCurve cometsPerSector;
 	public ObjectProbabilities cometConfig = new ObjectProbabilities();
 
+	public Utility.Range starsPerSector;
+	public WeightedArray<GameObject> stars = new WeightedArray<GameObject>();
+	public Utility.Range starScale;
+	public Utility.Range starDepth;
+	public Utility.Range starBrightness;
 
-	void SpawnSomething(Vector2 pos) {
-		ObjectConfig config = cometConfig.SelectRandom(pos.magnitude);
-		GameObject obj = Instantiate(config.prefab, pos, config.prefab.transform.rotation);
-		obj.transform.localScale *= config.scale;
-		obj.GetComponent<Rigidbody2D>().velocity = Utility.RandomDirection() * config.velocity;
-	}
+	private int chunkArea {get => chunkSize * chunkSize;}
+	private float sectorMultiplier {get => chunkArea / sectorArea;}
+	private Vector2Int CenterChunk { get => Vector2Int.RoundToInt(transform.position / chunkSize); }
 
-
-	void PopulateChunk(Vector2 pos) {
-		float area = chunkSize * chunkSize;
-		Vector2 chunkCenter = pos + Vector2.one * chunkSize / 2f;
-		int comets = Mathf.FloorToInt(area * cometDensity.Evaluate(chunkCenter.magnitude));
-
-		for (int i = 0; i < comets; i++) {
-			Vector2 cometPos = pos + Utility.RandomWithinBox(chunkSize, chunkSize);
-			SpawnSomething(cometPos);
-		}
-	}
 
 	void Update()
 	{
 		for(int i = 0; i < chunks.Count; i++) {
-			Vector2 pos = new Vector2(chunks[i].x, chunks[i].y);
+			Vector2Int pos = chunks[i].coords;
 
 			float shortestDistance = float.PositiveInfinity;
 			foreach(Vector2 corner in Utility.corners) {
-				float dist = Vector2.Distance(cameraRigidbody.position, (pos + corner) * chunkSize);
+				float dist = Vector2.Distance(transform.position, (pos + corner) * chunkSize);
 				if (dist < shortestDistance)
 					shortestDistance = dist;
 			}
 
 			if(shortestDistance > clearRadius) {
+				chunks[i].DeleteStars();
 				chunks.RemoveAt(i--);
 			}
 		}
 
-		(int x, int y) shipChunk = (Mathf.RoundToInt(cameraRigidbody.position.x / chunkSize), Mathf.RoundToInt(cameraRigidbody.position.y / chunkSize));
+		Vector2Int center = CenterChunk;
 
-		for(int y = -generateSize; y <= generateSize; y++) {
-			for(int x = -generateSize; x <= generateSize; x++) {
-				(int x, int y) chunkCoord = (shipChunk.x + x, shipChunk.y + y);
-				if (chunks.Contains(chunkCoord))
+		for(int y = -starGenerationSize; y <= starGenerationSize; y++) {
+			for(int x = -starGenerationSize; x <= starGenerationSize; x++) {
+				Vector2Int coords = center + new Vector2Int(x, y);
+				if (chunks.FindIndex(_chunk => _chunk.coords == coords) != -1)
 					continue;
 
-				PopulateChunk(new Vector2(chunkCoord.x, chunkCoord.y) * chunkSize);
-				chunks.Add(chunkCoord);
+				Chunk chunk = new Chunk(coords, this);
+				chunk.PopulateStars();
+				chunks.Add(chunk);
+			}
+		}
+
+		for(int y = -cometGenerationSize; y <= cometGenerationSize; y++) {
+			for(int x = -cometGenerationSize; x <= cometGenerationSize; x++) {
+				Vector2Int coords = center + new Vector2Int(x, y);
+				int index;
+				if ((index = chunks.FindIndex(_chunk => _chunk.coords == coords)) == -1) {
+					Chunk chunk = new Chunk(coords, this);
+					chunk.PopulateStars();
+					chunks.Add(chunk);
+				} else if (chunks[index].populated) continue;
+
+				chunks[index].Populate();
 			}
 		}
 	}
@@ -109,20 +199,27 @@ public class ChunkManager : MonoBehaviour
 	void OnDrawGizmos() {
 		Gizmos.color = Color.green;
 
-		Utility.DrawCircleGizmo(cameraRigidbody.position, clearRadius);
+		Utility.DrawCircleGizmo(transform.position, clearRadius);
 
-		(int x, int y) shipChunk = (Mathf.RoundToInt(cameraRigidbody.position.x / chunkSize), Mathf.RoundToInt(cameraRigidbody.position.y / chunkSize));
+		Vector2Int center = CenterChunk;
 
 		Utility.DrawSquareGizmo(
-			new Vector2(shipChunk.x - generateSize, shipChunk.y - generateSize) * chunkSize,
-			Vector2.one * chunkSize * (generateSize * 2 + 1)
+			(center - Vector2.one * cometGenerationSize) * chunkSize,
+			Vector2.one * (cometGenerationSize * 2 + 1) * chunkSize
+		);
+
+		Gizmos.color = Color.white;
+
+		Utility.DrawSquareGizmo(
+			(center - Vector2.one * starGenerationSize) * chunkSize,
+			Vector2.one * (starGenerationSize * 2 + 1) * chunkSize
 		);
 		
-		Gizmos.color = Color.red;
-		foreach(var chunkCoord in chunks) {
+		foreach(var chunk in chunks) {
+			Gizmos.color = chunk.populated ? Color.red : Color.yellow;
 			Utility.DrawSquareGizmo(
-				new Vector2(chunkCoord.x, chunkCoord.y) * chunkSize + Vector2.one * 0.5f,
-				Vector2.one * (chunkSize - 1)
+				chunk.coords * chunkSize + Vector2.one * 0.25f,
+				Vector2.one * (chunkSize - 0.5f)
 			);
 		}
 	}
