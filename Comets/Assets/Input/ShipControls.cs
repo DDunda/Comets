@@ -38,12 +38,12 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Accelerate"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""e0f254e8-b377-4eaa-8516-14c37075630b"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Fire"",
@@ -62,42 +62,18 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Direction"",
+                    ""type"": ""Value"",
+                    ""id"": ""a79253c9-605d-4915-9856-67bafe5c22fe"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": ""Gamepad (Left Stick)"",
-                    ""id"": ""180bf858-daf5-421c-8863-43eef163eb7a"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Turn"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""43699eab-8a6b-407c-9eb9-a3363e2d42c6"",
-                    ""path"": ""<Gamepad>/leftStick/left"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Turn"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""5d5f73c5-0e9a-457b-8456-792ee5582b21"",
-                    ""path"": ""<Gamepad>/leftStick/right"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Turn"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
                 {
                     ""name"": ""Keyboard (WASD)"",
                     ""id"": ""3d19a1ff-324a-43e7-93f5-cd04f33bc8b3"",
@@ -113,17 +89,6 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
                     ""name"": ""negative"",
                     ""id"": ""a50df9e5-a3be-4594-b965-e6b17ceb4404"",
                     ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Turn"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""de2eaa53-78d6-400c-bf67-91fea8caad49"",
-                    ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -155,6 +120,17 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""positive"",
+                    ""id"": ""de2eaa53-78d6-400c-bf67-91fea8caad49"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Turn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
                     ""id"": ""52273424-7ef1-4280-b1e7-55487d5cca2a"",
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
@@ -167,7 +143,7 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""103e97da-7833-4b94-a95f-9930c12de9df"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -199,8 +175,19 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""d22348fd-526a-41b4-8838-f99d16fa5e28"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Accelerate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""89fbab2e-2870-45b6-acf4-33b6a0feda71"",
-                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -222,7 +209,7 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""4d4f033f-7648-447d-84a2-30de1de8f295"",
-                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -233,11 +220,33 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""94e05670-cb4c-4a20-9d0d-cef592768b51"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Brake"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""14214d23-06d6-40c2-8876-7e9c05060fd1"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Brake"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cf56e13f-2d4a-4d35-9566-5d919c8ada63"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Direction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -260,6 +269,15 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
                     ""name"": ""WarpToCenter"",
                     ""type"": ""Button"",
                     ""id"": ""453fae57-4696-495a-885e-a6f560389633"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpawnComets"",
+                    ""type"": ""Button"",
+                    ""id"": ""63af5ab0-0fe5-42a2-9e3a-8cf8148511df"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -288,6 +306,17 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
                     ""action"": ""WarpToCenter"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b114e7db-2697-49ed-ae14-b19a78d6734f"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpawnComets"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -300,10 +329,12 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
         m_Ship_Accelerate = m_Ship.FindAction("Accelerate", throwIfNotFound: true);
         m_Ship_Fire = m_Ship.FindAction("Fire", throwIfNotFound: true);
         m_Ship_Brake = m_Ship.FindAction("Brake", throwIfNotFound: true);
+        m_Ship_Direction = m_Ship.FindAction("Direction", throwIfNotFound: true);
         // Ship (Debug)
         m_ShipDebug = asset.FindActionMap("Ship (Debug)", throwIfNotFound: true);
         m_ShipDebug_FreezeSpeed = m_ShipDebug.FindAction("FreezeSpeed", throwIfNotFound: true);
         m_ShipDebug_WarpToCenter = m_ShipDebug.FindAction("WarpToCenter", throwIfNotFound: true);
+        m_ShipDebug_SpawnComets = m_ShipDebug.FindAction("SpawnComets", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -367,6 +398,7 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Ship_Accelerate;
     private readonly InputAction m_Ship_Fire;
     private readonly InputAction m_Ship_Brake;
+    private readonly InputAction m_Ship_Direction;
     public struct ShipActions
     {
         private @ShipControls m_Wrapper;
@@ -375,6 +407,7 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
         public InputAction @Accelerate => m_Wrapper.m_Ship_Accelerate;
         public InputAction @Fire => m_Wrapper.m_Ship_Fire;
         public InputAction @Brake => m_Wrapper.m_Ship_Brake;
+        public InputAction @Direction => m_Wrapper.m_Ship_Direction;
         public InputActionMap Get() { return m_Wrapper.m_Ship; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -396,6 +429,9 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
                 @Brake.started -= m_Wrapper.m_ShipActionsCallbackInterface.OnBrake;
                 @Brake.performed -= m_Wrapper.m_ShipActionsCallbackInterface.OnBrake;
                 @Brake.canceled -= m_Wrapper.m_ShipActionsCallbackInterface.OnBrake;
+                @Direction.started -= m_Wrapper.m_ShipActionsCallbackInterface.OnDirection;
+                @Direction.performed -= m_Wrapper.m_ShipActionsCallbackInterface.OnDirection;
+                @Direction.canceled -= m_Wrapper.m_ShipActionsCallbackInterface.OnDirection;
             }
             m_Wrapper.m_ShipActionsCallbackInterface = instance;
             if (instance != null)
@@ -412,6 +448,9 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
                 @Brake.started += instance.OnBrake;
                 @Brake.performed += instance.OnBrake;
                 @Brake.canceled += instance.OnBrake;
+                @Direction.started += instance.OnDirection;
+                @Direction.performed += instance.OnDirection;
+                @Direction.canceled += instance.OnDirection;
             }
         }
     }
@@ -422,12 +461,14 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
     private IShipDebugActions m_ShipDebugActionsCallbackInterface;
     private readonly InputAction m_ShipDebug_FreezeSpeed;
     private readonly InputAction m_ShipDebug_WarpToCenter;
+    private readonly InputAction m_ShipDebug_SpawnComets;
     public struct ShipDebugActions
     {
         private @ShipControls m_Wrapper;
         public ShipDebugActions(@ShipControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @FreezeSpeed => m_Wrapper.m_ShipDebug_FreezeSpeed;
         public InputAction @WarpToCenter => m_Wrapper.m_ShipDebug_WarpToCenter;
+        public InputAction @SpawnComets => m_Wrapper.m_ShipDebug_SpawnComets;
         public InputActionMap Get() { return m_Wrapper.m_ShipDebug; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -443,6 +484,9 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
                 @WarpToCenter.started -= m_Wrapper.m_ShipDebugActionsCallbackInterface.OnWarpToCenter;
                 @WarpToCenter.performed -= m_Wrapper.m_ShipDebugActionsCallbackInterface.OnWarpToCenter;
                 @WarpToCenter.canceled -= m_Wrapper.m_ShipDebugActionsCallbackInterface.OnWarpToCenter;
+                @SpawnComets.started -= m_Wrapper.m_ShipDebugActionsCallbackInterface.OnSpawnComets;
+                @SpawnComets.performed -= m_Wrapper.m_ShipDebugActionsCallbackInterface.OnSpawnComets;
+                @SpawnComets.canceled -= m_Wrapper.m_ShipDebugActionsCallbackInterface.OnSpawnComets;
             }
             m_Wrapper.m_ShipDebugActionsCallbackInterface = instance;
             if (instance != null)
@@ -453,6 +497,9 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
                 @WarpToCenter.started += instance.OnWarpToCenter;
                 @WarpToCenter.performed += instance.OnWarpToCenter;
                 @WarpToCenter.canceled += instance.OnWarpToCenter;
+                @SpawnComets.started += instance.OnSpawnComets;
+                @SpawnComets.performed += instance.OnSpawnComets;
+                @SpawnComets.canceled += instance.OnSpawnComets;
             }
         }
     }
@@ -463,10 +510,12 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
         void OnAccelerate(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnBrake(InputAction.CallbackContext context);
+        void OnDirection(InputAction.CallbackContext context);
     }
     public interface IShipDebugActions
     {
         void OnFreezeSpeed(InputAction.CallbackContext context);
         void OnWarpToCenter(InputAction.CallbackContext context);
+        void OnSpawnComets(InputAction.CallbackContext context);
     }
 }

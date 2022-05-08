@@ -4,19 +4,22 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Damageable
+  - Ship
+  - Comet
+  - Resource
+  - LoadArea
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Comet
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Resources
+  - Bullet
+  - Ship
+  - Particles
+  - Trading Station
   - 
   - 
   - 

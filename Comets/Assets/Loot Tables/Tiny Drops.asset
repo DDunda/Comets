@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 879996a0ab527d74b80ce63ddbe2f27b, type: 3}
+  m_Name: Tiny Drops
+  m_EditorClassIdentifier: 
+  fixedDrops: []
+  randomDrops:
+    items:
+    - item:
+        drop:
+          prefab: {fileID: 4868974052918299571, guid: ef0399279195e584d95f29a5569293d3, type: 3}
+          count: 1
+        reward: 1
+      weight: 1
+    - item:
+        drop:
+          prefab: {fileID: 891085237455829529, guid: 029af2e399b6eab4cb6379fe90eb819c, type: 3}
+          count: 1
+        reward: 5
+      weight: 3
+    - item:
+        drop:
+          prefab: {fileID: 9183722774657071210, guid: 85d321453ef67b842890ddcfcfa95973, type: 3}
+          count: 1
+        reward: 5
+      weight: 2

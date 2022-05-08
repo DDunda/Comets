@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1380033250763171098}
   - component: {fileID: -5182778350775753324}
   - component: {fileID: -8745284146582031428}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Grid point
   m_TagString: Untagged
   m_Icon: {fileID: 0}

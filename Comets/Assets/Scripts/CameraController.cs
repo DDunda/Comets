@@ -4,34 +4,39 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-	public Transform cameraTransform;
+	public Rigidbody2D cameraRigidbody;
 	public ShipController shipController;
 	public float smoothingFactor = 2f;
 
-	private Rigidbody2D shipRigidbody;
-	private Vector2 velocity = Vector2.zero;
 	private Vector2 acceleration = Vector2.zero;
-
-
-	void Start()
-	{
-		shipRigidbody = shipController.shipRigidbody;
-	}
+	private Vector2 targetPosition = Vector2.zero;
+	private Rigidbody2D shipRigidbody { get => shipController.shipRigidbody; }
+	private Transform shipTransform { get => shipController.transform; }
 
 
     void FixedUpdate()
     {
 		float smoothDelta = 1 - Mathf.Pow(smoothingFactor, -Time.fixedDeltaTime);
 
-		Vector2 adiff = shipController.acceleration - acceleration;
-		acceleration += adiff * smoothDelta;
-		velocity += acceleration * Time.fixedDeltaTime;
+		if(shipController != null) {
+			targetPosition = shipTransform.position;
 
-		Vector2 vdiff = (shipRigidbody.velocity + shipController.acceleration * Time.fixedDeltaTime) - velocity;
-		velocity += vdiff * smoothDelta;
-		cameraTransform.position += (Vector3)velocity * Time.fixedDeltaTime;
+			Vector2 adiff = shipController.acceleration - acceleration;
+			acceleration += adiff * smoothDelta;
+			cameraRigidbody.velocity += acceleration * Time.fixedDeltaTime;
+			cameraRigidbody.position -= acceleration * Time.fixedDeltaTime * Time.fixedDeltaTime / 2f;
 
-		Vector2 pdiff = (shipRigidbody.position + shipRigidbody.velocity * Time.fixedDeltaTime) - (Vector2)cameraTransform.position;
-		cameraTransform.position += (Vector3)pdiff * smoothDelta;
+			Vector2 vdiff = shipRigidbody.velocity - cameraRigidbody.velocity;
+			cameraRigidbody.velocity += vdiff * smoothDelta;
+		} else {
+			acceleration -= acceleration * smoothDelta;
+			cameraRigidbody.velocity += acceleration * Time.fixedDeltaTime;
+			cameraRigidbody.position -= acceleration * Time.fixedDeltaTime * Time.fixedDeltaTime / 2f;
+			
+			cameraRigidbody.velocity -= cameraRigidbody.velocity * smoothDelta;
+		}
+
+		Vector2 pdiff = targetPosition - cameraRigidbody.position;
+		cameraRigidbody.position += pdiff * smoothDelta;
     }
 }
