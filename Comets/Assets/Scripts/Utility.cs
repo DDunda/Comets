@@ -32,8 +32,15 @@ public class Utility {
 	[System.Serializable]
 	public class Range {
 		public float min, max;
+		public Range(float min, float max) {
+			this.min = min;
+			this.max = max;
+		}
 		public static implicit operator float(Range r) {
 			return Random.Range(r.min, r.max);
+		}
+		public static implicit operator Range((float min, float max) tup) {
+			return new Range(tup.min, tup.max);
 		}
 	}
 
