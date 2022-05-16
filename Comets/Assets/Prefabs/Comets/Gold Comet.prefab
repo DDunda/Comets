@@ -56,7 +56,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2fb1cae25d66ce8429cbbd6426b0ec9d, type: 2}
+  - {fileID: 2100000, guid: 5595ff8af132b0f499bc9f651886f84d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7188086a63a352545a63c5b296991b1a, type: 3}
   m_Color: {r: 1, g: 0.8856585, b: 0.36900002, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -105,7 +105,7 @@ MonoBehaviour:
   explosionPrefab: {fileID: 420750666292363800, guid: ce54a02358aee674db1b7c66f22e276b, type: 3}
   sprites:
     items:
-    - item: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+    - item: {fileID: 21300000, guid: 7188086a63a352545a63c5b296991b1a, type: 3}
       weight: 1
   lootTable: {fileID: 11400000, guid: 1bb8f0274b72c61459d7b7c9d5a0e422, type: 2}
   rewardRange:
@@ -114,9 +114,18 @@ MonoBehaviour:
   spawnRadius:
     min: 0
     max: 0.75
+  randomScale:
+    min: 1
+    max: 1.2
+  splitSpinSpeed:
+    min: -180
+    max: 180
+  inheritSpinAmount:
+    min: -90
+    max: 90
   splitSpeed: 1
   inheritSpeed: 1
-  health: 50
+  health: 10
 --- !u!50 &3164087165264691919
 Rigidbody2D:
   serializedVersion: 4

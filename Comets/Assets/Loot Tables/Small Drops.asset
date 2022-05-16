@@ -12,32 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879996a0ab527d74b80ce63ddbe2f27b, type: 3}
   m_Name: Small Drops
   m_EditorClassIdentifier: 
-  fixedDrops:
-  - prefab: {fileID: 8015584604773040768, guid: ff4cfea932aefc346bccbd48a83507a8, type: 3}
-    count: 2
+  fixedDrops: []
   randomDrops:
     items:
-    - item:
-        drop:
-          prefab: {fileID: 891085237455829529, guid: 029af2e399b6eab4cb6379fe90eb819c, type: 3}
-          count: 1
-        reward: 5
-      weight: 2
-    - item:
-        drop:
-          prefab: {fileID: 9183722774657071210, guid: 85d321453ef67b842890ddcfcfa95973, type: 3}
-          count: 1
-        reward: 5
-      weight: 3
-    - item:
-        drop:
-          prefab: {fileID: 8015584604773040768, guid: ff4cfea932aefc346bccbd48a83507a8, type: 3}
-          count: 1
-        reward: 5
-      weight: 10
     - item:
         drop:
           prefab: {fileID: 4868974052918299571, guid: ef0399279195e584d95f29a5569293d3, type: 3}
           count: 1
         reward: 1
       weight: 1
+    - item:
+        drop:
+          prefab: {fileID: 8015584604773040768, guid: ae808706e1ffe294c8cb9548b0eb8eed, type: 3}
+          count: 1
+        reward: 3
+      weight: 2
+    - item:
+        drop:
+          prefab: {fileID: 9183722774657071210, guid: 85d321453ef67b842890ddcfcfa95973, type: 3}
+          count: 1
+        reward: 5
+      weight: 2
