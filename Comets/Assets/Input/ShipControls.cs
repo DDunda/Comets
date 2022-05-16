@@ -71,6 +71,33 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Change Powerup"",
+                    ""type"": ""Value"",
+                    ""id"": ""00bea48d-f380-4403-b3a2-7cdcb64e2f9b"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Set Powerup"",
+                    ""type"": ""Value"",
+                    ""id"": ""16fa9c21-5674-4bf5-ad99-eeb4b565bfd2"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Use Powerup"",
+                    ""type"": ""Button"",
+                    ""id"": ""1e1b664a-7f34-4fc9-ab8d-51d838238cd1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -220,7 +247,7 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""94e05670-cb4c-4a20-9d0d-cef592768b51"",
-                    ""path"": ""<Keyboard>/s"",
+                    ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -247,6 +274,138 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Direction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f7b589f6-59e7-47eb-8b64-a876b15c32b7"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": ""Normalize(min=-1,max=1)"",
+                    ""groups"": """",
+                    ""action"": ""Change Powerup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Gamepad bumpers"",
+                    ""id"": ""17b24354-53df-4d10-b7ab-86ebaa467680"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Change Powerup"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""37ae25f5-21ce-4193-9af3-859586298606"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Change Powerup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""f48ae2d4-1b45-43e6-93bc-4a4d1dcb82c2"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Change Powerup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""735e6b1e-dbaa-4eb7-875f-1c4fb95bd167"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Change Powerup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c52d0ebf-6b5e-4484-bc9e-a35c655f0540"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=0)"",
+                    ""groups"": """",
+                    ""action"": ""Set Powerup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5a5b3b27-ec26-407e-9815-7003745a9afe"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale"",
+                    ""groups"": """",
+                    ""action"": ""Set Powerup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c66b0028-1caa-47ec-8a23-0e2600cc49cd"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=2)"",
+                    ""groups"": """",
+                    ""action"": ""Set Powerup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""77589cef-1754-4f20-846d-3defd75c82eb"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=3)"",
+                    ""groups"": """",
+                    ""action"": ""Set Powerup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""92449dcf-1d00-4039-a4a2-c04dc599343c"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=4)"",
+                    ""groups"": """",
+                    ""action"": ""Set Powerup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ebfced4a-ce47-4f0f-a427-f047698c27d6"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Use Powerup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""96d305e3-32fb-4027-9154-43b778eee106"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Use Powerup"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -330,6 +489,9 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
         m_Ship_Fire = m_Ship.FindAction("Fire", throwIfNotFound: true);
         m_Ship_Brake = m_Ship.FindAction("Brake", throwIfNotFound: true);
         m_Ship_Direction = m_Ship.FindAction("Direction", throwIfNotFound: true);
+        m_Ship_ChangePowerup = m_Ship.FindAction("Change Powerup", throwIfNotFound: true);
+        m_Ship_SetPowerup = m_Ship.FindAction("Set Powerup", throwIfNotFound: true);
+        m_Ship_UsePowerup = m_Ship.FindAction("Use Powerup", throwIfNotFound: true);
         // Ship (Debug)
         m_ShipDebug = asset.FindActionMap("Ship (Debug)", throwIfNotFound: true);
         m_ShipDebug_FreezeSpeed = m_ShipDebug.FindAction("FreezeSpeed", throwIfNotFound: true);
@@ -399,6 +561,9 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Ship_Fire;
     private readonly InputAction m_Ship_Brake;
     private readonly InputAction m_Ship_Direction;
+    private readonly InputAction m_Ship_ChangePowerup;
+    private readonly InputAction m_Ship_SetPowerup;
+    private readonly InputAction m_Ship_UsePowerup;
     public struct ShipActions
     {
         private @ShipControls m_Wrapper;
@@ -408,6 +573,9 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
         public InputAction @Fire => m_Wrapper.m_Ship_Fire;
         public InputAction @Brake => m_Wrapper.m_Ship_Brake;
         public InputAction @Direction => m_Wrapper.m_Ship_Direction;
+        public InputAction @ChangePowerup => m_Wrapper.m_Ship_ChangePowerup;
+        public InputAction @SetPowerup => m_Wrapper.m_Ship_SetPowerup;
+        public InputAction @UsePowerup => m_Wrapper.m_Ship_UsePowerup;
         public InputActionMap Get() { return m_Wrapper.m_Ship; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -432,6 +600,15 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
                 @Direction.started -= m_Wrapper.m_ShipActionsCallbackInterface.OnDirection;
                 @Direction.performed -= m_Wrapper.m_ShipActionsCallbackInterface.OnDirection;
                 @Direction.canceled -= m_Wrapper.m_ShipActionsCallbackInterface.OnDirection;
+                @ChangePowerup.started -= m_Wrapper.m_ShipActionsCallbackInterface.OnChangePowerup;
+                @ChangePowerup.performed -= m_Wrapper.m_ShipActionsCallbackInterface.OnChangePowerup;
+                @ChangePowerup.canceled -= m_Wrapper.m_ShipActionsCallbackInterface.OnChangePowerup;
+                @SetPowerup.started -= m_Wrapper.m_ShipActionsCallbackInterface.OnSetPowerup;
+                @SetPowerup.performed -= m_Wrapper.m_ShipActionsCallbackInterface.OnSetPowerup;
+                @SetPowerup.canceled -= m_Wrapper.m_ShipActionsCallbackInterface.OnSetPowerup;
+                @UsePowerup.started -= m_Wrapper.m_ShipActionsCallbackInterface.OnUsePowerup;
+                @UsePowerup.performed -= m_Wrapper.m_ShipActionsCallbackInterface.OnUsePowerup;
+                @UsePowerup.canceled -= m_Wrapper.m_ShipActionsCallbackInterface.OnUsePowerup;
             }
             m_Wrapper.m_ShipActionsCallbackInterface = instance;
             if (instance != null)
@@ -451,6 +628,15 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
                 @Direction.started += instance.OnDirection;
                 @Direction.performed += instance.OnDirection;
                 @Direction.canceled += instance.OnDirection;
+                @ChangePowerup.started += instance.OnChangePowerup;
+                @ChangePowerup.performed += instance.OnChangePowerup;
+                @ChangePowerup.canceled += instance.OnChangePowerup;
+                @SetPowerup.started += instance.OnSetPowerup;
+                @SetPowerup.performed += instance.OnSetPowerup;
+                @SetPowerup.canceled += instance.OnSetPowerup;
+                @UsePowerup.started += instance.OnUsePowerup;
+                @UsePowerup.performed += instance.OnUsePowerup;
+                @UsePowerup.canceled += instance.OnUsePowerup;
             }
         }
     }
@@ -511,6 +697,9 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
         void OnFire(InputAction.CallbackContext context);
         void OnBrake(InputAction.CallbackContext context);
         void OnDirection(InputAction.CallbackContext context);
+        void OnChangePowerup(InputAction.CallbackContext context);
+        void OnSetPowerup(InputAction.CallbackContext context);
+        void OnUsePowerup(InputAction.CallbackContext context);
     }
     public interface IShipDebugActions
     {

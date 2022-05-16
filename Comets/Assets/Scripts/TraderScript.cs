@@ -1,8 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using UnityEngine;
 
-public class TraderScript : MonoBehaviour
+public class TraderScript : MonoBehaviour, IResourceAdder, IResourceInventory
 {
 	public enum ShipMode {
 		Standyby,
@@ -12,30 +12,34 @@ public class TraderScript : MonoBehaviour
 	}
 
 
-	public GameObject ship;
 	public GameObject UI;
-	public CircleCollider2D suctionArea;
 	public CircleCollider2D deactivateArea;
+	public Suction suction;
 
-	public float attractionStrength = 2f;
 	public float reenableDelay;
 	public float ejectSpeed;
 
 	public ShipMode mode = ShipMode.Standyby;
 	
-	private Transform shipTransform;
-	private Rigidbody2D shipRigidbody;
-	private ShipController shipController;
-	private ShipInventory shipInventory;
-	private PolygonCollider2D shipCollider;
+	public ShipController ship;
+	public PolygonCollider2D shipCollider;
+
+	public Transform shipTransform { get => ship.transform; }
+	public ShipInventory inventory { get => ship.inventory; }
+	private new Rigidbody2D rigidbody  { get => ship.rigidbody; }
+	private ShipInput input { get => ship.input; }
+
+	public uint resourceCount {get => resources.Count;}
+
+	[SerializeField]
+	private ResourceDict resources = new ResourceDict();
+
+	public UIValue<object[]> itemStatsUI;
 
 
 	void Start() {
-		shipTransform = ship.transform;
-		shipRigidbody = ship.GetComponent<Rigidbody2D>();
-		shipController = ship.GetComponent<ShipController>();
-		shipInventory = ship.GetComponent<ShipInventory>();
-		shipCollider = ship.GetComponent<PolygonCollider2D>();
+		suction.mask = LayerMask.GetMask("Ship");
+		SetUI();
 	}
 
 
@@ -43,21 +47,9 @@ public class TraderScript : MonoBehaviour
 		switch (mode)
 		{
 			case ShipMode.Standyby:
-				if(shipCollider != null && suctionArea.IsTouching(shipCollider)) {
-					mode = ShipMode.Docking;
-				}
-				break;
-			case ShipMode.Docking:
-				if(shipCollider != null) {
-					if(!suctionArea.IsTouching(shipCollider)) {
-						mode = ShipMode.Standyby;
-					} else if(deactivateArea.IsTouching(shipCollider)) {
-						Dock();
-					} else {
-						shipRigidbody.velocity -= (shipRigidbody.position - (Vector2)transform.position).normalized * attractionStrength * Time.deltaTime;
-					}
-				} else {
-					mode = ShipMode.Standyby;
+				if (shipCollider != null && deactivateArea.IsTouching(shipCollider))
+				{
+					Dock();
 				}
 				break;
 		}
@@ -65,23 +57,27 @@ public class TraderScript : MonoBehaviour
 
 
 	public void SellEverything() {
-		if(shipInventory == null) return;
-		shipInventory.resources.Clear();
-		shipInventory.powerups.Clear();
+		if(inventory == null) return;
+		Resource[] shipR = inventory.GetResources();
+		foreach (Resource r in shipR) {
+			inventory.TransferResources(this, r);
+		}
 	}
 
 
 	public void Repair() {
-		if(shipController == null) return;
-		shipController.health = shipController.maxHealth;
+		if(ship == null) return;
+		ship.health = ship.maxHealth;
 	}
 
 
 	void Dock() {
 		if(ship != null) {
-			shipRigidbody.velocity = Vector2.zero;
-			shipTransform.position = transform.position;
-			shipController.DisableShip();
+			rigidbody.velocity = Vector2.zero;
+			rigidbody.angularVelocity = 0;
+			rigidbody.transform.position = transform.position;
+			rigidbody.simulated = false;
+			input.enabled = false;
 		}
 
 		UI.SetActive(true);
@@ -92,24 +88,44 @@ public class TraderScript : MonoBehaviour
 
 	void ReEnable() {
 		deactivateArea.enabled = true;
-		suctionArea.enabled = true;
-		if(ship != null) shipController.EnableShip();
+		suction.enabled = true;
+		if(ship != null) input.enabled = true;
 		mode = ShipMode.Standyby;
 	}
 
 
 	public void Leave() {
 		deactivateArea.enabled = false;
-		suctionArea.enabled = false;
+		suction.enabled = false;
 		UI.SetActive(false);
 		mode = ShipMode.Ejecting;
 
 		if(ship != null) {
-			shipRigidbody.simulated = true;
-			shipRigidbody.velocity = Utility.RandomDirection() * ejectSpeed;
-			shipRigidbody.rotation = Vector2.SignedAngle(Vector2.up, shipRigidbody.velocity);
+			rigidbody.simulated = true;
+			rigidbody.velocity = Utility.RandomDirection() * ejectSpeed;
+			rigidbody.rotation = Vector2.SignedAngle(Vector2.up, rigidbody.velocity);
 		}
 
     	Invoke("ReEnable", reenableDelay);
 	}
+
+	private void SetUI() {
+		object[] vals = new object[4];
+		vals[0] = resources[ResourceType.Copper];
+		vals[1] = resources[ResourceType.Gold];
+		vals[2] = resources[ResourceType.Platinum];
+		vals[3] = resources[ResourceType.Plutonium];
+
+		itemStatsUI.Set(vals);
+	}
+
+	public bool CanAddResources(Resource resource) => true;
+	public bool AddResources(Resource resource) {
+		resources += resource;
+		SetUI();
+		return true;
+	}
+
+	public uint GetResources(ResourceType type) => resources[type];
+	public Resource[] GetResources() => resources.ToArray();
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -10,7 +8,7 @@ public class CameraController : MonoBehaviour
 
 	private Vector2 acceleration = Vector2.zero;
 	private Vector2 targetPosition = Vector2.zero;
-	private Rigidbody2D shipRigidbody { get => shipController.shipRigidbody; }
+	private Rigidbody2D shipRigidbody { get => shipController.rigidbody; }
 	private Transform shipTransform { get => shipController.transform; }
 
 
@@ -21,7 +19,7 @@ public class CameraController : MonoBehaviour
 		if(shipController != null) {
 			targetPosition = shipTransform.position;
 
-			Vector2 adiff = shipController.acceleration - acceleration;
+			Vector2 adiff = shipController.input.acceleration - acceleration;
 			acceleration += adiff * smoothDelta;
 			cameraRigidbody.velocity += acceleration * Time.fixedDeltaTime;
 			cameraRigidbody.position -= acceleration * Time.fixedDeltaTime * Time.fixedDeltaTime / 2f;

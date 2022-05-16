@@ -9,6 +9,10 @@ public class Utility {
 		return FromAngle(Random.Range(0, Mathf.PI * 2));
 	}
 
+	public static Vector2 RotateDirection(Vector2 v, float a) {
+		Vector2 r = FromAngle(a);
+		return new Vector2(v.x * r.x - v.y * r.y, v.x * r.y + v.y * r.x);
+	}
 
 	public static Vector2 RandomWithinCircle(float minRadius, float maxRadius) {
 		float mR = 1 - Mathf.Sqrt(1 - minRadius / maxRadius);

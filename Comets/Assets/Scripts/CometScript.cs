@@ -76,6 +76,9 @@ public class CometScript : MonoBehaviour, IDamageable
 	public LootTable lootTable;
 	public Utility.Range rewardRange;
 	public Utility.Range spawnRadius;
+	public Utility.Range randomScale;
+	public Utility.Range splitSpinSpeed;
+	public Utility.Range inheritSpinAmount;
 	public float splitSpeed;
 	public bool inheritSpeed = true;
 
@@ -97,10 +100,13 @@ public class CometScript : MonoBehaviour, IDamageable
 
 		GameObject child = Instantiate(prefab, transform.position + (Vector3)randomPos, transform.rotation);
 
+		child.transform.localScale *= randomScale;
+
 		Rigidbody2D rb;
 		if(!child.TryGetComponent(out rb)) return child;
 
-		rb.velocity = randomPos.normalized * splitSpeed;
+		rb.velocity = randomPos / spawnRadius.max * splitSpeed;
+		rb.angularVelocity = splitSpinSpeed;
 
 		return child;
 	}
@@ -132,6 +138,7 @@ public class CometScript : MonoBehaviour, IDamageable
 
 		foreach(var rb in childBodies) {
 			rb.velocity -= dV;
+			rb.angularVelocity += cometRigidbody.angularVelocity * inheritSpinAmount;
 		}
 	}
 

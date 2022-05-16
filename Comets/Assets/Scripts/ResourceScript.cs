@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class ResourceScript : MonoBehaviour
 {
-	public ResourceType type;
-	public int amount = 1;
+	public Resource resource;
 
 	public static List<GameObject> allResources = new List<GameObject>();
 
@@ -14,9 +13,9 @@ public class ResourceScript : MonoBehaviour
 
 
 	void OnTriggerEnter2D(Collider2D collider) {
-		ICollector collector;
-		if(!collider.gameObject.TryGetComponent(out collector)) return;
-		if(!collector.CollectResource(type, amount)) return;
+		IResourceAdder adder;
+		if(!collider.gameObject.TryGetComponent(out adder)) return;
+		if(!adder.AddResources(resource)) return;
 
 		Destroy(gameObject);
 	}

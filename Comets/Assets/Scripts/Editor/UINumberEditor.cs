@@ -1,11 +1,11 @@
 using UnityEditor;
 
-[CustomEditor(typeof(UIPercentage))]
-public class UIPercentageEditor : Editor {
+[CustomEditor(typeof(UINumber))]
+public class UINumberEditor : Editor {
 	public override void OnInspectorGUI() {
 		base.OnInspectorGUI();
 
-		UIPercentage obj = target as UIPercentage;
+		UINumber obj = target as UINumber;
 		if(obj == null) return;
 
 		obj.Set(obj.startValue);
