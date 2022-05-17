@@ -4789,7 +4789,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3c371377ebbf0fb438a65516b492c757, type: 2}
+  - {fileID: 2100000, guid: 7edd06a930965454dadcd96b71f7dfb6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4824,13 +4824,13 @@ ParticleSystemRenderer:
   m_RenderAlignment: 0
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
-  m_UseCustomVertexStreams: 0
+  m_UseCustomVertexStreams: 1
   m_EnableGPUInstancing: 1
   m_ApplyActiveColorSpace: 1
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
-  m_VertexStreams: 00010304
+  m_VertexStreams: 000304
   m_Mesh: {fileID: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
@@ -9669,7 +9669,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5595ff8af132b0f499bc9f651886f84d, type: 2}
+  - {fileID: 2100000, guid: e93d2340fbbb8ba448130f68a0c6c191, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9692,7 +9692,7 @@ ParticleSystemRenderer:
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
-  m_SortMode: 0
+  m_SortMode: 1
   m_MinParticleSize: 0
   m_MaxParticleSize: 0.5
   m_CameraVelocityScale: 0
@@ -9704,13 +9704,13 @@ ParticleSystemRenderer:
   m_RenderAlignment: 0
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
-  m_UseCustomVertexStreams: 0
+  m_UseCustomVertexStreams: 1
   m_EnableGPUInstancing: 1
   m_ApplyActiveColorSpace: 1
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
-  m_VertexStreams: 00010304
+  m_VertexStreams: 000304
   m_Mesh: {fileID: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
@@ -9815,7 +9815,7 @@ GameObject:
   - component: {fileID: 4502261670596553483}
   - component: {fileID: 6249776126739702292}
   - component: {fileID: 5668595049001233903}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Ship Suction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9850,9 +9850,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 0}
-  radius: 0.75
+  radius: 1
   attractionForce: 50
-  mask: 64
+  mask: 2112
   inventory: {fileID: 7253160189236053590}
 --- !u!60 &5668595049001233903
 PolygonCollider2D:
@@ -9960,8 +9960,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cargoUI: {fileID: 0}
+  resources:
+    _resources: []
   maxResources: 50
+  powerups: []
   maxPowerups: 5
+  powerupSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!50 &892535828405321524
 Rigidbody2D:
   serializedVersion: 4
@@ -10034,10 +10043,11 @@ MonoBehaviour:
   controller: {fileID: 1482111259925456047}
   engineSprite: {fileID: 8129972489478172656}
   engineParticles: {fileID: 1771122015}
-  thrustAcceleration: 5
+  thrustAcceleration: 7.5
   brakeAcceleration: 5
   acceleration: {x: 0, y: 0}
-  turnTime: 0.2
+  turnTime: 0.4
+  buttonTurnSpeed: 180
   turnSpeed: 720
   angularAcceleration: 0
   camera: {fileID: 0}
@@ -10046,9 +10056,10 @@ MonoBehaviour:
   mouseDeadzoneRadius: 0.5
   targetDirection: {x: 0, y: 0}
   bulletPrefab: {fileID: 6189464081613131298, guid: 14a2e447dbea4d34997bbf20270a19dd, type: 3}
-  bulletVelocity: {x: 0, y: 40}
+  bulletVelocity: {x: 0, y: 20}
   bulletOffset: {x: 0, y: 1}
   bulletCooldown: 0.1
+  powerupTarget: {fileID: 8148036625389810666}
   cometPrefabs:
   - {fileID: 3164087165264691906, guid: 71c22d7dcec9ddf4d94b074478b54eaf, type: 3}
   cometSpawnRadius: 20

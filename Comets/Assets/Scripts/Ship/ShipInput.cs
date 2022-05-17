@@ -99,6 +99,7 @@ public class ShipInput : MonoBehaviour, ShipControls.IShipActions
 		engineParticles.Stop();
 		acceleration = Vector2.zero;
 		angularAcceleration = 0;
+		targetDirection = Vector2.zero;
 	}
 
 
