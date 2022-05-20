@@ -4,70 +4,6 @@ using UnityEngine;
 
 public class CometScript : MonoBehaviour, IDamageable
 {
-	[System.Serializable]
-	public class SpawnPair {
-		public GameObject child;
-		public int count;
-		public float rewardWeight;
-	}
-
-	[System.Serializable]
-	public class WeightedArray<T> {
-		[System.Serializable]
-		public class WeightedItem {
-			public T item;
-			public float weight;
-		}
-
-		public delegate bool Filter(T item);
-
-		public WeightedItem[] items;
-
-		public T SelectRandom() {
-			float weightSum = 0;
-			foreach(var item in items) {
-				weightSum += item.weight;
-			}
-
-			float weight = Random.Range(0, weightSum);
-
-			foreach (var pair in items)
-			{
-				if(weight < pair.weight) {
-					return pair.item;
-				}
-
-				weight -= pair.weight;
-			}
-
-			return default(T);
-		}
-
-		public T SelectRandom(Filter filter) {
-			float weightSum = 0;
-			foreach(var item in items) {
-				if(filter(item.item)) {
-					weightSum += item.weight;
-				}
-			}
-
-			float weight = Random.Range(0, weightSum);
-
-			foreach (var item in items)
-			{
-				if(!filter(item.item)) continue;
-
-				if(weight < item.weight) {
-					return item.item;
-				}
-
-				weight -= item.weight;
-			}
-
-			return default(T);
-		}
-	}
-
 	public SpriteRenderer cometRenderer;
 	public Rigidbody2D cometRigidbody;
 	public GameObject explosionPrefab;
@@ -122,12 +58,14 @@ public class CometScript : MonoBehaviour, IDamageable
 
 		foreach (var drop in drops)
 		{
-			GameObject child = SpawnChild(drop);
-			Rigidbody2D rb = child.GetComponent<Rigidbody2D>();
-			totalMass += rb.mass;
-			momentum += rb.mass * rb.velocity;
-			
-			childBodies.Add(rb);
+			for(int i = 0; i < drop.count; i++)
+			{
+				Rigidbody2D rb = SpawnChild(drop.prefab).GetComponent<Rigidbody2D>();
+				totalMass += rb.mass;
+				momentum += rb.mass * rb.velocity;
+
+				childBodies.Add(rb);
+			}
 		}
 
 		if(inheritSpeed) {

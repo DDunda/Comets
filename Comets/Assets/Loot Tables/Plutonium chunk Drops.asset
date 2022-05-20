@@ -9,15 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 879996a0ab527d74b80ce63ddbe2f27b, type: 3}
+  m_Script: {fileID: 11500000, guid: c2f92cd8049a22c4eb92a705db886b3d, type: 3}
   m_Name: Plutonium chunk Drops
   m_EditorClassIdentifier: 
-  fixedDrops: []
   randomDrops:
     items:
     - item:
-        drop:
-          prefab: {fileID: 9183722774657071210, guid: c73a6e7860ebb73488ccbe0e177c7e9a, type: 3}
-          count: 1
+        prefab: {fileID: 9183722774657071210, guid: c73a6e7860ebb73488ccbe0e177c7e9a, type: 3}
+        count: 1
         reward: 125
       weight: 1

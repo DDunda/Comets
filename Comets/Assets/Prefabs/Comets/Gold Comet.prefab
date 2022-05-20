@@ -105,7 +105,7 @@ MonoBehaviour:
   explosionPrefab: {fileID: 420750666292363800, guid: ce54a02358aee674db1b7c66f22e276b, type: 3}
   sprites:
     items:
-    - item: {fileID: 21300000, guid: 7188086a63a352545a63c5b296991b1a, type: 3}
+    - item: {fileID: 21300000, guid: 2ca292c44f415b544b666819ab4e1e67, type: 3}
       weight: 1
   lootTable: {fileID: 11400000, guid: 1bb8f0274b72c61459d7b7c9d5a0e422, type: 2}
   rewardRange:

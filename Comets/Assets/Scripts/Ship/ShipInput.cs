@@ -13,7 +13,7 @@ public class ShipInput : MonoBehaviour, ShipControls.IShipActions
 	public ShipController controller;
 
 	[Header("Acceleration")]
-	public SpriteRenderer engineSprite;
+	public GameObject engine;
 	public ParticleSystem engineParticles;
 	public float thrustAcceleration = 1f;
 	public float brakeAcceleration = 0.2f;
@@ -192,12 +192,12 @@ public class ShipInput : MonoBehaviour, ShipControls.IShipActions
 			case InputActionPhase.Started:
 				if(!controls.Ship.Brake.IsPressed()) {
 					engineParticles.Play();
-					engineSprite.enabled = true;
+					engine.SetActive(true);
 				}
 				break;
 			case InputActionPhase.Canceled:
         		engineParticles.Stop();
-				engineSprite.enabled = false;
+				engine.SetActive(false);
 				break;
 		}
 	}
@@ -208,12 +208,12 @@ public class ShipInput : MonoBehaviour, ShipControls.IShipActions
 		{
 			case InputActionPhase.Started:
 				engineParticles.Stop();
-				engineSprite.enabled = false;
+				engine.SetActive(false);
 				break;
 			case InputActionPhase.Canceled:
 				if(controls.Ship.Accelerate.IsPressed()) {
 					engineParticles.Play();
-					engineSprite.enabled = true;
+					engine.SetActive(true);
 				}
 				break;
 		}
