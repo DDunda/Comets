@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8962d175e0298be449df6ad6bacc58fd, type: 3}
+  m_Name: Health upgrade
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
+  baseCost:
+    copper: 0
+    gold: -10
+    platinum: -5
+    plutonium: -5
+  descriptionFormat: Upgrade health from {0} to {1}
+  modifier:
+    multiplier: 2
+    addition: 0
+  costPerHealth:
+    copper: 0.2
+    gold: 0.1
+    platinum: 0.0125
+    plutonium: 0.00625

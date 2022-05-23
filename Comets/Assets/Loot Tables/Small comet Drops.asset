@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2f92cd8049a22c4eb92a705db886b3d, type: 3}
+  m_Script: {fileID: 11500000, guid: 11ec01d930faa534b805f4f9832c5024, type: 3}
   m_Name: Small comet Drops
   m_EditorClassIdentifier: 
+  fixedDrops:
+  - prefab: {fileID: 8015584604773040768, guid: ae808706e1ffe294c8cb9548b0eb8eed, type: 3}
+    count: 1
   randomDrops:
     items:
     - item:
@@ -23,9 +26,4 @@ MonoBehaviour:
         prefab: {fileID: 8015584604773040768, guid: ae808706e1ffe294c8cb9548b0eb8eed, type: 3}
         count: 1
         reward: 3
-      weight: 2
-    - item:
-        prefab: {fileID: 9183722774657071210, guid: 85d321453ef67b842890ddcfcfa95973, type: 3}
-        count: 1
-        reward: 5
-      weight: 2
+      weight: 10

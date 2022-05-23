@@ -230,6 +230,7 @@ public class ShipInput : MonoBehaviour, ShipControls.IShipActions
 			transform.rotation
 		);
 		bullet.GetComponent<Rigidbody2D>().velocity = rigidbody.velocity + (Vector2)transform.TransformDirection(bulletVelocity);
+		bullet.GetComponent<BulletManager>().damage = controller.bulletDamage;
 	}
 
 

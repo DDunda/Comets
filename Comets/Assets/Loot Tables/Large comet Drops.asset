@@ -10,27 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 11ec01d930faa534b805f4f9832c5024, type: 3}
-  m_Name: Medium comet Drops
+  m_Name: Large comet Drops
   m_EditorClassIdentifier: 
   fixedDrops:
-  - prefab: {fileID: 8015584604773040768, guid: ff4cfea932aefc346bccbd48a83507a8, type: 3}
+  - prefab: {fileID: 3164087165264691906, guid: 96b55cca3336014448226aabd9caddb1, type: 3}
     count: 1
-  - prefab: {fileID: 8015584604773040768, guid: d99876212dbbf3444a863021cd03f09b, type: 3}
+  - prefab: {fileID: 8015584604773040768, guid: d7fa68f857411b84491f0958c239e18e, type: 3}
     count: 1
   randomDrops:
     items:
     - item:
-        prefab: {fileID: 9183722774657071210, guid: 85d321453ef67b842890ddcfcfa95973, type: 3}
+        prefab: {fileID: 9183722774657071210, guid: b192b30c248bd9842b63de07beb4c2d9, type: 3}
         count: 1
-        reward: 2
+        reward: 4
       weight: 3
     - item:
-        prefab: {fileID: 8015584604773040768, guid: d99876212dbbf3444a863021cd03f09b, type: 3}
+        prefab: {fileID: 8015584604773040768, guid: d7fa68f857411b84491f0958c239e18e, type: 3}
         count: 1
-        reward: 6
+        reward: 12
       weight: 25
     - item:
-        prefab: {fileID: 8015584604773040768, guid: ff4cfea932aefc346bccbd48a83507a8, type: 3}
+        prefab: {fileID: 3164087165264691906, guid: 96b55cca3336014448226aabd9caddb1, type: 3}
         count: 1
-        reward: 8
+        reward: 22
       weight: 50

@@ -193,8 +193,8 @@ MonoBehaviour:
       weight: 1
   lootTable: {fileID: 11400000, guid: ec84780bc5b5942478810ec3b0d82834, type: 2}
   rewardRange:
-    min: 5
-    max: 15
+    min: 3
+    max: 13
   spawnRadius:
     min: 0.75
     max: 0.75
@@ -207,9 +207,9 @@ MonoBehaviour:
   inheritSpinAmount:
     min: 0
     max: 0.5
-  splitSpeed: 1
+  splitSpeed: 2
   inheritSpeed: 1
-  health: 10
+  health: 20
 --- !u!50 &3164087165264691919
 Rigidbody2D:
   serializedVersion: 4
@@ -222,7 +222,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 60
+  m_Mass: 80
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0

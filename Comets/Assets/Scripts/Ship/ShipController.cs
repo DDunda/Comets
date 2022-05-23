@@ -11,9 +11,10 @@ public class ShipController : MonoBehaviour, IDamageable
 	[Header("Health")]
 	public UIValue<float> healthUI;
 	private float _health;
-	public float maxHealth = 100;
+	public float _maxHealth = 100;
 
 	[Header("Spawning/Destruction")]
+	public float bulletDamage = 1f;
 	public Transform spawnpoint;
 	public GameObject explosionParticles;
 	public Vector2 explosionOffset;
@@ -22,7 +23,14 @@ public class ShipController : MonoBehaviour, IDamageable
 		get => _health;
 		set {
 			_health = Mathf.Clamp(value, 0, maxHealth);
-			healthUI.Set(_health / maxHealth);
+			healthUI.Set(_health / _maxHealth);
+		}
+	}
+	public float maxHealth {
+		get => _maxHealth;
+		set {
+			_maxHealth = Mathf.Max(value, 0);
+			healthUI.Set(_health / _maxHealth);
 		}
 	}
 
@@ -32,15 +40,17 @@ public class ShipController : MonoBehaviour, IDamageable
 	}
 
 
+	public void OnEnable() => EnableShip();
+	public void OnDisable() => DisableShip();
+
+
 	public void EnableShip() {
 		ship.SetActive(true);
 		rigidbody.simulated = true;
-		input.Enable();
 	}
 
 
 	public void DisableShip() {
-		input.Disable();
 		rigidbody.simulated = false;
 		ship.SetActive(false);
 	}

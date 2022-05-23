@@ -73,7 +73,10 @@ public class ChunkManager : MonoBehaviour
 		public void Populate() {
 			Vector2 chunkCenter = worldCoords + Vector2.one / 2f * manager.chunkSize;
 
-			float numCometsf = manager.cometsPerSector.Evaluate(chunkCenter.magnitude) * manager.sectorMultiplier;
+			float numCometsf = manager.cometsPerSector.Evaluate(
+				Mathf.Clamp01(chunkCenter.magnitude / manager.maxSpawnRange),
+				Random.value
+			) * manager.sectorMultiplier;
 			int numComets = Mathf.FloorToInt(numCometsf) + (numCometsf % 1 > Random.value ? 1 : 0);
 
 			for (int i = 0; i < numComets; i++) {
@@ -136,6 +139,7 @@ public class ChunkManager : MonoBehaviour
 	public float clearRadius;
 
 	public ParticleSystem.MinMaxCurve cometsPerSector;
+	public float maxSpawnRange;
 	public ObjectProbabilities cometConfig = new ObjectProbabilities();
 
 	public Utility.Range starsPerSector;
@@ -200,6 +204,7 @@ public class ChunkManager : MonoBehaviour
 		Gizmos.color = Color.green;
 
 		Utility.DrawCircleGizmo(transform.position, clearRadius);
+		Utility.DrawCircleGizmo(Vector2.zero, maxSpawnRange);
 
 		Vector2Int center = CenterChunk;
 

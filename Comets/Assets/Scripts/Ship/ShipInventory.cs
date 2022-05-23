@@ -35,12 +35,48 @@ public class ResourceDict
 	}
 
 	public static ResourceDict operator-(ResourceDict dict, Resource resource) {
-		if(resource.amount > dict[resource.type]) {
-			dict[resource.type] = 0;
-		} else {
-			dict[resource.type] -= resource.amount;
-		}
+		dict[resource.type] -= resource.amount < dict[resource.type] ? resource.amount : dict[resource.type];
 		return dict;
+	}
+
+	public static ResourceDict operator+(ResourceDict dict, ResourceGroup resources) {
+		dict += new Resource(ResourceType.Copper, resources.copper);
+		dict += new Resource(ResourceType.Gold, resources.gold);
+		dict += new Resource(ResourceType.Platinum, resources.platinum);
+		dict += new Resource(ResourceType.Plutonium, resources.plutonium);
+		return dict;
+	}
+	public static ResourceDict operator-(ResourceDict dict, ResourceGroup resources) {
+		dict -= new Resource(ResourceType.Copper, resources.copper);
+		dict -= new Resource(ResourceType.Gold, resources.gold);
+		dict -= new Resource(ResourceType.Platinum, resources.platinum);
+		dict -= new Resource(ResourceType.Plutonium, resources.plutonium);
+		return dict;
+	}
+
+	public static bool operator>(ResourceDict dict, ResourceGroup resources) {
+		return dict[ResourceType.Copper] > resources.copper
+			&& dict[ResourceType.Gold] > resources.gold
+			&& dict[ResourceType.Platinum] > resources.platinum
+			&& dict[ResourceType.Plutonium] > resources.plutonium;
+	}
+	public static bool operator<(ResourceDict dict, ResourceGroup resources) {
+		return dict[ResourceType.Copper] < resources.copper
+			|| dict[ResourceType.Gold] < resources.gold
+			|| dict[ResourceType.Platinum] < resources.platinum
+			|| dict[ResourceType.Plutonium] < resources.plutonium;
+	}
+	public static bool operator==(ResourceDict dict, ResourceGroup resources) {
+		return dict[ResourceType.Copper] == resources.copper
+			&& dict[ResourceType.Gold] == resources.gold
+			&& dict[ResourceType.Platinum] == resources.platinum
+			&& dict[ResourceType.Plutonium] == resources.plutonium;
+	}
+	public static bool operator!=(ResourceDict dict, ResourceGroup resources) {
+		return dict[ResourceType.Copper] != resources.copper
+			&& dict[ResourceType.Gold] != resources.gold
+			&& dict[ResourceType.Platinum] != resources.platinum
+			&& dict[ResourceType.Plutonium] != resources.plutonium;
 	}
 
 	public Resource[] ToArray() => _resources.ToArray();

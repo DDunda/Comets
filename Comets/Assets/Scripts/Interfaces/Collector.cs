@@ -22,6 +22,57 @@ public class Resource
 	}
 }
 
+[System.Serializable]
+public class ResourceGroup
+{
+	public uint copper;
+	public uint gold;
+	public uint platinum;
+	public uint plutonium;
+
+	public ResourceGroup(uint copper = 0, uint gold = 0, uint platinum = 0, uint plutonium = 0)
+	{
+		this.copper = copper;
+		this.gold = gold;
+		this.platinum = platinum;
+		this.plutonium = plutonium;
+	}
+	
+	public static ResourceGroup operator*(ResourceGroup cost, float mult) {
+		return new ResourceGroup(
+			(uint)Mathf.RoundToInt(cost.copper * mult),
+			(uint)Mathf.RoundToInt(cost.gold * mult),
+			(uint)Mathf.RoundToInt(cost.platinum * mult),
+			(uint)Mathf.RoundToInt(cost.plutonium * mult)
+		);
+	}
+	public static ResourceGroup operator*(ResourceGroup cost, uint mult) {
+		return new ResourceGroup(
+			cost.copper * mult,
+			cost.gold * mult,
+			cost.platinum * mult,
+			cost.plutonium * mult
+		);
+	}
+
+	public static ResourceGroup operator+(ResourceGroup a, ResourceGroup b) {
+		return new ResourceGroup(
+			a.copper + b.copper,
+			a.gold + b.gold,
+			a.platinum + b.platinum,
+			a.plutonium + b.plutonium
+		);
+	}
+	public static ResourceGroup operator-(ResourceGroup a, ResourceGroup b) {
+		return new ResourceGroup(
+			a.copper - b.copper,
+			a.gold - b.gold,
+			a.platinum - b.platinum,
+			a.plutonium - b.plutonium
+		);
+	}
+}
+
 public interface IResourceAdder {
 	/// <summary>Checks if there is enough space to add a certain resource</summary>
 	/// <param name="type">Type of resource</param>
