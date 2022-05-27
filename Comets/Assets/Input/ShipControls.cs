@@ -225,7 +225,7 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""cd23253a-4607-4d6c-a255-7c5fde80b94f"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -247,18 +247,7 @@ public partial class @ShipControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""94e05670-cb4c-4a20-9d0d-cef592768b51"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Brake"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""14214d23-06d6-40c2-8876-7e9c05060fd1"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

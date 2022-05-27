@@ -18,6 +18,13 @@ public class UIBar : UIValue<float>
 	private float _targetValue = 0;
 	private float _timeRemaining = 0;
 
+
+	public void Start() {
+		_oldValue = startValue;
+		_targetValue = startValue;
+	}
+
+
 	public Vector2 GetScale(float value) {
 		return Vector2.Lerp(minScale, maxScale, value);
 	}

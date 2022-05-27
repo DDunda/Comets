@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Medium comet Drops
   m_EditorClassIdentifier: 
   fixedDrops:
-  - prefab: {fileID: 8015584604773040768, guid: ff4cfea932aefc346bccbd48a83507a8, type: 3}
+  - prefab: {fileID: 8015584604773040768, guid: 2a3f0552a9e52c340887f0ee76d640e5, type: 3}
     count: 1
   - prefab: {fileID: 8015584604773040768, guid: d99876212dbbf3444a863021cd03f09b, type: 3}
     count: 1
@@ -30,7 +30,7 @@ MonoBehaviour:
         reward: 6
       weight: 25
     - item:
-        prefab: {fileID: 8015584604773040768, guid: ff4cfea932aefc346bccbd48a83507a8, type: 3}
+        prefab: {fileID: 8015584604773040768, guid: 2a3f0552a9e52c340887f0ee76d640e5, type: 3}
         count: 1
         reward: 8
       weight: 50
