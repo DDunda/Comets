@@ -3262,7 +3262,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 7.4000244, y: 0}
+  m_AnchoredPosition: {x: 5.200012, y: 10.399994}
   m_SizeDelta: {x: 306.37, y: 77.38}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1204950161
@@ -3287,15 +3287,17 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Turning: A/D, LStick, mouse
 
-    Accelerate/Brake: W/Shift, left/bottom
-    button, L/R click
+    Accelerate:  W/ Shift/ left button/ Left
+    click
 
-    Shoot: Spacebar, R Trigger
+    Brake: spacebar/ bottom button
 
-    Use Powerup: E, top button
+    Shoot: right click , Right Trigger
 
-    Change
-    powerup: 1,2,3,4,5/Tab, L/R Bumper'
+    Use
+    Powerup: E, top button
+
+    Change powerup: 1,2,3,4,5/Tab, L/R Bumper'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
