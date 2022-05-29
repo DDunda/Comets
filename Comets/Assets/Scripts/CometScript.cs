@@ -23,9 +23,10 @@ public class CometScript : MonoBehaviour, IDamageable
 
 	public float health;
 	public static float rewardMultiplier = 1;
+	public bool explosiveDestroy = false;
 
 
-    void Start() {
+	void Start() {
         cometRenderer.sprite = sprites.SelectRandom();
 		CometCleaner.allComets.Add(gameObject);
     }
@@ -45,6 +46,15 @@ public class CometScript : MonoBehaviour, IDamageable
 		rb.angularVelocity = splitSpinSpeed;
 
 		return child;
+	}
+
+
+	public void OnDestroy() {
+		if(!explosiveDestroy) return;
+		Split();
+		GameObject explosion = Instantiate(explosionPrefab, transform.position, transform.rotation);
+		explosion.GetComponent<Rigidbody2D>().velocity = cometRigidbody.velocity;
+		explosion.SetActive(true);
 	}
 
 
@@ -84,11 +94,7 @@ public class CometScript : MonoBehaviour, IDamageable
 	public void DoDamage(float damage, GameObject source) {
 		health -= damage;
 		if(health > 0) return;
-		
-		Split();
-		GameObject explosion = Instantiate(explosionPrefab, transform.position, transform.rotation);
-		explosion.GetComponent<Rigidbody2D>().velocity = cometRigidbody.velocity;
-		explosion.SetActive(true);
+		explosiveDestroy = true;
 		Destroy(gameObject);
 	}
 

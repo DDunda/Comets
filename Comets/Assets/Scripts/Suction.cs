@@ -3,7 +3,7 @@ using UnityEngine;
 public class Suction : MonoBehaviour
 {
 	public Vector2 offset;
-	public float radius;
+	public float startRadius;
 
 	public float attractionForce = 2f;
 	public int mask;
@@ -11,14 +11,24 @@ public class Suction : MonoBehaviour
 	private bool _active = false;
 	public bool active { get => _active; }
 
+	protected float _radius;
+	public virtual float radius {
+		get => _radius;
+		set => _radius = value;
+	}
+
 	public virtual bool CanAttract(Collider2D obj) => true;
+
+	void Start() {
+		radius = startRadius;
+	}
 
 	void Update() {
 		_active = false;
 
 		Collider2D[] colliders = Physics2D.OverlapCircleAll(
 			(Vector2)transform.TransformPoint(offset),
-			radius,
+			radius * transform.lossyScale.z,
 			mask
 		);
 
@@ -35,6 +45,6 @@ public class Suction : MonoBehaviour
 
     void OnDrawGizmos() {
 		Gizmos.color = Color.green;
-		Utility.DrawCircleGizmo(transform.TransformPoint(offset), radius);
+		Utility.DrawCircleGizmo(transform.TransformPoint(offset), startRadius * transform.lossyScale.z);
 	}
 }

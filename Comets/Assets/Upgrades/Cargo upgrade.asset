@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 540ed321b70ca324c80955aa418260b2, type: 3}
   m_Name: Cargo upgrade
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 60529d195fa99f1439363c8975e4caf7, type: 3}
   baseCost:
     copper: 0
-    gold: 0
-    platinum: 0
-    plutonium: 0
+    gold: -10
+    platinum: -20
+    plutonium: -40
   descriptionFormat: Upgrade cargo space from {0} to {1}
   modifier:
-    multiplier: 3.53
+    multiplier: 1.5
     addition: 0
   costPerCargo:
-    copper: 0
-    gold: 0
-    platinum: 0
-    plutonium: 0
+    copper: 0.4
+    gold: 0.4
+    platinum: 0.4
+    plutonium: 0.4

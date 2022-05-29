@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 8502848053418531076}
   - component: {fileID: 3140175318363478507}
   - component: {fileID: 2225678849133854967}
+  - component: {fileID: -7657501301294405685}
   m_Layer: 6
   m_Name: Plutonium
   m_TagString: Resource
@@ -224,3 +225,16 @@ MonoBehaviour:
   resource:
     type: 3
     amount: 1
+--- !u!114 &-7657501301294405685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9183722774657071210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8448caa4baf0644f8d8aa3ddf5c1f93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radarBlipPrefab: {fileID: 2325435019617854161, guid: f566f1eb4a6d9d1408942c9d70b68f5d, type: 3}

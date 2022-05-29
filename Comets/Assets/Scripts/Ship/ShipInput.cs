@@ -17,6 +17,7 @@ public class ShipInput : MonoBehaviour, ShipControls.IShipActions
 	public ParticleSystem engineParticles;
 	public float thrustAcceleration = 1f;
 	public float brakeAcceleration = 0.2f;
+	public float maxEmitRate = 50.0f;
 	[HideInInspector]
 	public Vector2 acceleration = Vector2.zero;
 
@@ -71,6 +72,7 @@ public class ShipInput : MonoBehaviour, ShipControls.IShipActions
 
 	void Awake() {
 		controls = new ShipControls();
+        engineParticles.Stop();
 		controls.Ship.SetCallbacks(this);
 		#if UNITY_EDITOR
 			controls.ShipDebug.SetCallbacks(this);
@@ -110,11 +112,6 @@ public class ShipInput : MonoBehaviour, ShipControls.IShipActions
 	}
 
 
-    void Start() {
-        engineParticles.Stop();
-    }
-
-
     void Update() {
 		if (mouseTurningEnabled && Mouse.current.delta.ReadValue() != Vector2.zero)
 		{
@@ -132,7 +129,9 @@ public class ShipInput : MonoBehaviour, ShipControls.IShipActions
 		}
 
 		acceleration = rigidbody.transform.up * thrustAcceleration * controls.Ship.Accelerate.ReadValue<float>() * targetDirection.magnitude;
-    }
+		var e = engineParticles.emission;
+		e.rateOverTime = maxEmitRate * acceleration.magnitude / thrustAcceleration;
+	}
 
 
 	void FixedUpdate() {

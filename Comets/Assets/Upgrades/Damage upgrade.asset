@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42ab9c7b575d1a444807343f9fa0eb36, type: 3}
   m_Name: Damage upgrade
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 2b8cedcc3b37ba3448d9a7f01a9f95b9, type: 3}
   baseCost:
     copper: 0
-    gold: -1
-    platinum: -2
-    plutonium: -4
+    gold: -10
+    platinum: -20
+    plutonium: -40
   descriptionFormat: Upgrade damage from {0} to {1}
   modifier:
     multiplier: 2
     addition: 0
   costPerDamage:
-    copper: 1
-    gold: 1
-    platinum: 1
-    plutonium: 1
+    copper: 10
+    gold: 10
+    platinum: 10
+    plutonium: 10

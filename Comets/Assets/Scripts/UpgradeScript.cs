@@ -9,9 +9,50 @@ public class UpgradeScript : MonoBehaviour
 	public UIValue<float> goldCost;
 	public UIValue<float> platinumCost;
 	public UIValue<float> plutoniumCost;
+	public Selectable button;
 
-	private TraderScript trader = null;
+	private TraderUI trader = null;
 	private Upgrade upgrade = null;
+
+	public void SetNext(Selectable s) {
+		var nav = button.navigation;
+		nav.selectOnDown = s;
+		button.navigation = nav;
+
+		nav = s.navigation;
+		nav.selectOnUp = button;
+		s.navigation = nav;
+	}
+
+	public void SetLast(Selectable s) {
+		var nav = button.navigation;
+		nav.selectOnUp = s;
+		button.navigation = nav;
+
+		nav = s.navigation;
+		nav.selectOnDown = button;
+		s.navigation = nav;
+	}
+
+	public void SetNav(Selectable last, Selectable next) {
+		SetLast(last);
+		SetNext(next);
+	}
+
+	public void RemoveNav() {
+		var nav = button.navigation.selectOnUp.navigation;
+		nav.selectOnDown = button.navigation.selectOnDown;
+		button.navigation.selectOnUp.navigation = nav;
+
+		nav = button.navigation.selectOnDown.navigation;
+		nav.selectOnUp = button.navigation.selectOnUp;
+		button.navigation.selectOnDown.navigation = nav;
+
+		nav = button.navigation;
+		nav.selectOnUp = null;
+		nav.selectOnDown = null;
+		button.navigation = nav;
+	}
 
 	public void SetCost() {
 		ResourceGroup cost = upgrade.Cost;
@@ -22,11 +63,11 @@ public class UpgradeScript : MonoBehaviour
 		plutoniumCost.Set((int)cost.plutonium);
 	}
 
-	public void SetUpgrade(Upgrade upgrade, TraderScript trader) {
+	public void SetUpgrade(Upgrade upgrade, TraderUI trader) {
 		this.upgrade = upgrade;
 		this.trader = trader;
-		upgrade.trader = trader;
-		upgrade.ship = trader.ship;
+		upgrade.trader = trader.trader;
+		upgrade.ship = trader.trader.ship;
 
 		image.sprite = upgrade.sprite;
 		description.text = upgrade.Description;
@@ -35,7 +76,7 @@ public class UpgradeScript : MonoBehaviour
 	}
 
 	public void BuyUpgrade() {
-		trader.BuyUpgrade(upgrade);
+		trader.trader.BuyUpgrade(upgrade);
 		SetCost();
 	}
 }

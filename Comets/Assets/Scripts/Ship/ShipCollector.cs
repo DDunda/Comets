@@ -3,6 +3,16 @@ using UnityEngine;
 public class ShipCollector : Suction, IResourceAdder, IPowerupAdder
 {
 	public ShipInventory inventory;
+	public GameObject glow;
+
+
+	public override float radius {
+		set {
+			glow.transform.localScale = value * Vector3.one;
+			_radius = value;
+		}
+	}
+
 
 	public void Start() => mask = LayerMask.GetMask("Resources") | LayerMask.GetMask("Powerups");
 

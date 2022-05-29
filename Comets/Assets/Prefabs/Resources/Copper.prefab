@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 5395627291813440221}
   - component: {fileID: 1690281419576863282}
   - component: {fileID: 2450523558555300654}
+  - component: {fileID: -7794991238516557851}
   m_Layer: 6
   m_Name: Copper
   m_TagString: Resource
@@ -224,3 +225,16 @@ MonoBehaviour:
   resource:
     type: 0
     amount: 1
+--- !u!114 &-7794991238516557851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4868974052918299571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8448caa4baf0644f8d8aa3ddf5c1f93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radarBlipPrefab: {fileID: 2632583034381781104, guid: 14735f23fc60f3d4c94927716b4d45be, type: 3}

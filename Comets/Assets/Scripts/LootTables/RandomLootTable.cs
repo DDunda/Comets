@@ -16,7 +16,7 @@ public class RandomLootTable : LootTable
 			RewardPair drop = randomDrops.SelectRandom(x => x.reward <= reward);
 			if (drop == null) break;
 
-			reward -= drop.reward;
+			reward -= drop.reward * drop.count;
 			objects.Add(drop.drop);
 		}
 

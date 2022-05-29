@@ -14,10 +14,10 @@ public class MixedLootTable : LootTable
 
 		while (reward > 0)
 		{
-			RewardPair drop = randomDrops.SelectRandom(x => x.reward <= reward);
+			RewardPair drop = randomDrops.SelectRandom(x => x.reward * x.count <= reward);
 			if (drop == null) break;
 
-			reward -= drop.reward;
+			reward -= drop.reward * drop.count;
 			objects.Add(drop.drop);
 		}
 

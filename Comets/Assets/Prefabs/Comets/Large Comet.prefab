@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 3164087165264691907}
   - component: {fileID: 3164087165264691919}
   - component: {fileID: 3164087165264691918}
+  - component: {fileID: 7046743707644281935}
   m_Layer: 3
   m_Name: Large Comet
   m_TagString: Comet
@@ -247,3 +248,16 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.83
+--- !u!114 &7046743707644281935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3164087165264691906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8448caa4baf0644f8d8aa3ddf5c1f93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radarBlipPrefab: {fileID: 7053752662263308289, guid: b8ce0ac1dcdf16e48b7e7f1ef7a62324, type: 3}

@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 8502848053418531076}
   - component: {fileID: 3140175318363478507}
   - component: {fileID: 2225678849133854967}
+  - component: {fileID: 5639604065442139980}
   m_Layer: 6
   m_Name: Platinum
   m_TagString: Resource
@@ -224,3 +225,16 @@ MonoBehaviour:
   resource:
     type: 2
     amount: 1
+--- !u!114 &5639604065442139980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9183722774657071210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8448caa4baf0644f8d8aa3ddf5c1f93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radarBlipPrefab: {fileID: 1895469192053708029, guid: 949dbfefa012a654fb3cdd1edd12fdd9, type: 3}

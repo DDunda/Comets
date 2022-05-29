@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 8015584604773040769}
   - component: {fileID: 8015584604773040781}
   - component: {fileID: 8015584604773040780}
+  - component: {fileID: 7512837007108815975}
   m_Layer: 3
   m_Name: Copper Chunk
   m_TagString: Comet
@@ -194,7 +195,7 @@ MonoBehaviour:
   lootTable: {fileID: 11400000, guid: 96d5845cfdbc98a4ba3a8aa29ff56404, type: 2}
   rewardRange:
     min: 3
-    max: 4
+    max: 3
   spawnRadius:
     min: 0
     max: 0.3
@@ -247,3 +248,16 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.3
+--- !u!114 &7512837007108815975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8015584604773040768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8448caa4baf0644f8d8aa3ddf5c1f93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radarBlipPrefab: {fileID: 2757905243950574466, guid: 32c1a7ead0eef9b41b1d5866879d229d, type: 3}

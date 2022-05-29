@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 8015584604773040769}
   - component: {fileID: 8015584604773040781}
   - component: {fileID: 8015584604773040780}
+  - component: {fileID: -945572465043427667}
   m_Layer: 3
   m_Name: Plutonium chunk
   m_TagString: Comet
@@ -193,8 +194,8 @@ MonoBehaviour:
       weight: 1
   lootTable: {fileID: 11400000, guid: 2dc86753931e0884d923c4669776a0e6, type: 2}
   rewardRange:
-    min: 375
-    max: 500
+    min: 24
+    max: 24
   spawnRadius:
     min: 0
     max: 0.3
@@ -247,3 +248,16 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.3
+--- !u!114 &-945572465043427667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8015584604773040768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8448caa4baf0644f8d8aa3ddf5c1f93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radarBlipPrefab: {fileID: 3915270853495600317, guid: a8a2d1926fa023b4ebbb758f14287f2b, type: 3}

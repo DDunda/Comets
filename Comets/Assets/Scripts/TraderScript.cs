@@ -12,7 +12,7 @@ public class TraderScript : MonoBehaviour, IResourceAdder, IResourceInventory
 	}
 
 
-	public GameObject UI;
+	public TraderUI UI;
 	public GameObject gameOverlay;
 	public CircleCollider2D deactivateArea;
 	public Suction suction;
@@ -41,11 +41,13 @@ public class TraderScript : MonoBehaviour, IResourceAdder, IResourceInventory
 	private ResourceDict resources = new ResourceDict();
 
 	public List<Upgrade> startingUpgrades = new List<Upgrade>();
-	public GameObject upgradeElementPrefab;
-	public RectTransform upgradeContainer;
-	public RectTransform contentContainer;
 	private List<Upgrade> upgrades = new List<Upgrade>();
-	private List<GameObject> upgradeElements = new List<GameObject>();
+
+
+	void AddUpgrade(Upgrade upgrade) {
+		upgrades.Add(upgrade);
+		UI.AddUpgrade(upgrade);
+	}
 
 
 	void SetUpgrade(int index, Upgrade upgrade) {
@@ -56,56 +58,14 @@ public class TraderScript : MonoBehaviour, IResourceAdder, IResourceInventory
 			return;
 		}
 
-		upgradeElements[index].GetComponent<UpgradeScript>().SetUpgrade(upgrade, this);
-	}
-
-	void AddUpgrade(Upgrade upgrade) {
-		Transform parent = upgradeElements.Count == 0
-			? upgradeContainer.transform
-			: upgradeElements[upgradeElements.Count - 1].transform;
-
-		GameObject obj = Instantiate(
-			upgradeElementPrefab,
-			parent.position,
-			Quaternion.identity,
-			parent
-		);
-
-		var t = obj.transform as RectTransform;
-		t.anchoredPosition = Vector2.zero;
-		var r = t.rect;
-
-		var sd = contentContainer.sizeDelta;
-		sd.y += r.yMax - r.yMin;
-		contentContainer.sizeDelta = sd;
-
-		obj.GetComponent<UpgradeScript>().SetUpgrade(upgrade, this);
-
-		upgradeElements.Add(obj);
-		upgrades.Add(upgrade);
+		UI.SetUpgrade(index, upgrade);
 	}
 
 	void RemoveUpgrade(int i) {
-		if(i >= upgradeElements.Count) return;
+		if(i >= upgrades.Count) return;
 
 		upgrades.RemoveAt(i);
-
-		GameObject obj = upgradeElements[i];
-
-		if(i < upgradeElements.Count - 1) {
-			var child = obj.transform.GetChild(0);
-			child.transform.SetParent(obj.transform.parent);
-		}
-
-		var t = obj.transform as RectTransform;
-		var r = t.rect;
-
-		var sd = upgradeContainer.sizeDelta;
-		sd.y -= r.yMax - r.yMin;
-		upgradeContainer.sizeDelta = sd;
-
-		upgradeElements.RemoveAt(i);
-		Destroy(obj);
+		UI.RemoveUpgrade(i);
 	}
 
 
@@ -155,8 +115,11 @@ public class TraderScript : MonoBehaviour, IResourceAdder, IResourceInventory
 			ship.enabled = false;
 		}
 
-		UI.SetActive(true);
+		UI.gameObject.SetActive(true);
+		UI.Select();
 		gameOverlay.SetActive(false);
+		SellEverything();
+		Repair();
 
 		mode = ShipMode.Holding;
 	}
@@ -173,7 +136,7 @@ public class TraderScript : MonoBehaviour, IResourceAdder, IResourceInventory
 	public void Leave() {
 		deactivateArea.enabled = false;
 		suction.enabled = false;
-		UI.SetActive(false);
+		UI.gameObject.SetActive(false);
 		gameOverlay.SetActive(true);
 
 		if(ship != null) {

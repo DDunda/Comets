@@ -44,6 +44,7 @@ public class ChunkManager : MonoBehaviour
 			GameObject star = Instantiate(prefab, new Vector3(pos.x, pos.y, manager.starDepth), prefab.transform.rotation);
 
 			star.transform.localScale *= manager.starScale;
+			star.transform.eulerAngles = new Vector3(0, 0, Random.Range(0, 360));
 			star.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, manager.starBrightness);
 
 			stars.Add(star);

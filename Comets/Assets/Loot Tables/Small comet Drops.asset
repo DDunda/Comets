@@ -26,4 +26,4 @@ MonoBehaviour:
         prefab: {fileID: 8015584604773040768, guid: ae808706e1ffe294c8cb9548b0eb8eed, type: 3}
         count: 1
         reward: 3
-      weight: 10
+      weight: 50

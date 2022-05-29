@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3966a3afb18637f4aaf3d4d3b64481f4, type: 3}
+  m_Name: Minimap upgrade
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 21300000, guid: ad29bed69d52f394481edf039fed5a90, type: 3}
+  baseCost:
+    copper: 0
+    gold: -25
+    platinum: -50
+    plutonium: -70
+  descriptionFormat: Upgrade radar range from {0}m to {1}m
+  modifier:
+    multiplier: 1
+    addition: 10
+  costPerRange:
+    copper: 2.5
+    gold: 2.5
+    platinum: 2.5
+    plutonium: 2.5

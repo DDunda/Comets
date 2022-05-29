@@ -6,6 +6,8 @@ public class ShipController : MonoBehaviour, IDamageable
 	public GameObject ship;
 	public ShipInventory inventory;
 	public new Rigidbody2D rigidbody;
+	public MinimapController minimap;
+	public ShipCollector suction;
 	public ShipInput input;
 
 	[Header("Health")]

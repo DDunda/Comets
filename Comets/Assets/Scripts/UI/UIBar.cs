@@ -25,8 +25,10 @@ public class UIBar : UIValue<float>
 	}
 
 
-	public Vector2 GetScale(float value) {
-		return Vector2.Lerp(minScale, maxScale, value);
+	public Vector3 GetScale(float value) {
+		Vector3 s = Vector2.Lerp(minScale, maxScale, value);
+		s.z = 1;
+		return s;
 	}
 
     public override float Set(float value) {
