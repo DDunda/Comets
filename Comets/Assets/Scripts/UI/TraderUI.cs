@@ -13,6 +13,7 @@ public class TraderUI : Selectable
 
 	public RectTransform root;
 	public ScrollRect scroll;
+	public Sound selectSound;
 
 	public Selectable selectableRoot;
 
@@ -100,10 +101,15 @@ public class TraderUI : Selectable
 
 	void Update() {
         var e = EventSystem.current;
-        if (e.currentSelectedGameObject != null && e.currentSelectedGameObject != selectedObject)
-            selectedObject = e.currentSelectedGameObject;
-        else if (e != null && e.currentSelectedGameObject == null)
-            e.SetSelectedGameObject(selectedObject);
+		if (e.currentSelectedGameObject != null && e.currentSelectedGameObject != selectedObject)
+		{
+			selectedObject = e.currentSelectedGameObject;
+			if (selectedObject != gameObject) {
+				AudioManager.PlaySound(selectSound);
+			}
+		}
+		else if (e != null && e.currentSelectedGameObject == null)
+			e.SetSelectedGameObject(selectedObject);
 
 		if(upgradeElements.Contains(selectedObject)) {
 			var _rect = new Vector3[4];

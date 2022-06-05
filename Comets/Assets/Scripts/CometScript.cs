@@ -7,6 +7,7 @@ public class CometScript : MonoBehaviour, IDamageable
 	public SpriteRenderer cometRenderer;
 	public Rigidbody2D cometRigidbody;
 	public GameObject explosionPrefab;
+	public GameObject explosionSound;
 
 	public WeightedArray<Sprite> sprites = new WeightedArray<Sprite>();
 	public LootTable lootTable;
@@ -55,6 +56,9 @@ public class CometScript : MonoBehaviour, IDamageable
 		GameObject explosion = Instantiate(explosionPrefab, transform.position, transform.rotation);
 		explosion.GetComponent<Rigidbody2D>().velocity = cometRigidbody.velocity;
 		explosion.SetActive(true);
+		GameObject sound = Instantiate(explosionSound, transform.position, transform.rotation);
+		sound.GetComponent<Rigidbody2D>().velocity = cometRigidbody.velocity;
+		sound.SetActive(true);
 	}
 
 

@@ -188,6 +188,7 @@ MonoBehaviour:
   cometRenderer: {fileID: 3164087165264691904}
   cometRigidbody: {fileID: 3164087165264691919}
   explosionPrefab: {fileID: 420750666292363800, guid: ce54a02358aee674db1b7c66f22e276b, type: 3}
+  explosionSound: {fileID: 1960530355130686432, guid: f3cd821f73a0c624e9e08eabec36d92a, type: 3}
   sprites:
     items:
     - item: {fileID: 21300000, guid: 4490589dc606ef7449d2f66d6e1741d8, type: 3}
@@ -210,7 +211,8 @@ MonoBehaviour:
     max: 1.5
   splitSpeed: 2
   inheritSpeed: 1
-  health: 80
+  health: 120
+  explosiveDestroy: 0
 --- !u!50 &3164087165264691919
 Rigidbody2D:
   serializedVersion: 4

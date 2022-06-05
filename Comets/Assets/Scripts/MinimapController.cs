@@ -5,7 +5,7 @@ using UnityEngine;
 public class MinimapController : MonoBehaviour
 {
 	public ShipController ship;
-	public Transform trader;
+	public Detectable trader;
 	public RectTransform mapContainer;
 	public GameObject traderArrow;
 	public GameObject shipBlip;
@@ -13,7 +13,6 @@ public class MinimapController : MonoBehaviour
 	public float worldRadius = 10.0f;
 	public float scaleFactor = 2.0f;
 
-	private Detectable traderDetector;
 	private int mask = 0;
 	private List<Detectable> trackedObjs = new List<Detectable>();
 
@@ -22,7 +21,6 @@ public class MinimapController : MonoBehaviour
 		mask |= LayerMask.GetMask("Powerups");
 		mask |= LayerMask.GetMask("Comet");
 		mask |= LayerMask.GetMask("Trading Station");
-		traderDetector = trader.GetComponent<Detectable>();
 	}
 
     void Update()
@@ -44,7 +42,7 @@ public class MinimapController : MonoBehaviour
 				continue;
 			}
 
-			if(detector == traderDetector) traderArrow.SetActive(false);
+			if(detector == trader) traderArrow.SetActive(false);
 
 			detector.Detect(mapContainer);
 			trackedObjs.Add(detector);
@@ -53,7 +51,7 @@ public class MinimapController : MonoBehaviour
 		foreach (var detector in toDelete) {
 			trackedObjs.Remove(detector);
 			detector.UnDetect();
-			if(detector == traderDetector) traderArrow.SetActive(true);
+			if(detector == trader) traderArrow.SetActive(true);
 		}
 
 		float x = Mathf.Pow(2.0f, -scaleFactor);
@@ -73,7 +71,7 @@ public class MinimapController : MonoBehaviour
 			traderArrow.transform.eulerAngles = new Vector3(0, 0,
 				Vector2.SignedAngle(
 					Vector2.up,
-					trader.position - ship.transform.position
+					trader.transform.position - ship.transform.position
 				)
 			);
 		}

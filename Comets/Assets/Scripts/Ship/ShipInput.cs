@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using TMPro;
 
 
 public class ShipInput : MonoBehaviour, ShipControls.IShipActions
@@ -13,11 +10,15 @@ public class ShipInput : MonoBehaviour, ShipControls.IShipActions
 	public ShipController controller;
 
 	[Header("Acceleration")]
-	public GameObject engine;
+	public SpriteRenderer engineGlow;
+	public Transform engineFlame;
 	public ParticleSystem engineParticles;
 	public float thrustAcceleration = 1f;
 	public float brakeAcceleration = 0.2f;
 	public float maxEmitRate = 50.0f;
+	public AudioSource engineSound;
+	[Range(0f, 1f)]
+	public float maxEngineVolume;
 	[HideInInspector]
 	public Vector2 acceleration = Vector2.zero;
 
@@ -46,6 +47,7 @@ public class ShipInput : MonoBehaviour, ShipControls.IShipActions
 	public GameObject bulletPrefab;
 	public Vector2 bulletVelocity = new Vector2(0, 5);
 	public Vector2 bulletOffset = new Vector2(0, 1);
+	public Sound bulletSound;
 	[Min(0)]
 	public float bulletCooldown;
 	private float timeLastFired = 0;
@@ -54,8 +56,8 @@ public class ShipInput : MonoBehaviour, ShipControls.IShipActions
 	public GameObject powerupTarget;
 	private uint selectedPowerup = 0;
 
-#if UNITY_EDITOR
-	[Header("Debug")]
+	#if UNITY_EDITOR
+		[Header("Debug")]
 		public GameObject[] cometPrefabs;
 		[Min(0)]
 		public float cometSpawnRadius;
@@ -98,10 +100,35 @@ public class ShipInput : MonoBehaviour, ShipControls.IShipActions
 			controls.ShipDebug.Disable();
 		#endif
 
-		engineParticles.Stop();
-		acceleration = Vector2.zero;
+		SetEngineStrength(0);
+		SetEngineActive(false);
+
 		angularAcceleration = 0;
 		targetDirection = Vector2.zero;
+	}
+
+
+	void SetEngineActive(bool b) {
+		if(b) engineParticles.Play();
+		else engineParticles.Stop();
+
+		engineGlow.enabled = b;
+		engineFlame.gameObject.SetActive(b);
+	}
+
+
+	void SetEngineStrength(float x) {
+		x = Mathf.Clamp01(x);
+
+		var e = engineParticles.emission;
+		e.rateOverTime = maxEmitRate * x;
+
+		engineGlow.color = new Color(1, 1, 1, x);
+		engineFlame.localScale = new Vector3(1, x, 1);
+
+		engineSound.volume = x * maxEngineVolume;
+
+		acceleration = rigidbody.transform.up * thrustAcceleration * x;
 	}
 
 
@@ -123,14 +150,14 @@ public class ShipInput : MonoBehaviour, ShipControls.IShipActions
 				targetDirection = Vector2.ClampMagnitude(mouseDelta / mouseMaxAccRadius, 1);
 			}
 		}
-		else if(controls.Ship.Turn.IsPressed())
+		else if (controls.Ship.Turn.IsPressed())
 		{
-			targetDirection = Utility.RotateDirection(targetDirection, buttonTurnSpeed * -controls.Ship.Turn.ReadValue<float>() * Mathf.Deg2Rad * Time.deltaTime);
+			if(targetDirection.magnitude == 0) targetDirection = rigidbody.transform.up;
+			else targetDirection /= targetDirection.magnitude;
+			targetDirection = targetDirection.RotateDirection(buttonTurnSpeed * -controls.Ship.Turn.ReadValue<float>() * Mathf.Deg2Rad * Time.deltaTime);
 		}
 
-		acceleration = rigidbody.transform.up * thrustAcceleration * controls.Ship.Accelerate.ReadValue<float>() * targetDirection.magnitude;
-		var e = engineParticles.emission;
-		e.rateOverTime = maxEmitRate * acceleration.magnitude / thrustAcceleration;
+		SetEngineStrength(controls.Ship.Accelerate.ReadValue<float>() * targetDirection.magnitude);
 	}
 
 
@@ -190,13 +217,11 @@ public class ShipInput : MonoBehaviour, ShipControls.IShipActions
 		{
 			case InputActionPhase.Started:
 				if(!controls.Ship.Brake.IsPressed()) {
-					engineParticles.Play();
-					engine.SetActive(true);
+					SetEngineActive(true);
 				}
 				break;
 			case InputActionPhase.Canceled:
-        		engineParticles.Stop();
-				engine.SetActive(false);
+				SetEngineActive(false);
 				break;
 		}
 	}
@@ -206,13 +231,11 @@ public class ShipInput : MonoBehaviour, ShipControls.IShipActions
 		switch (context.phase)
 		{
 			case InputActionPhase.Started:
-				engineParticles.Stop();
-				engine.SetActive(false);
+				SetEngineActive(false);
 				break;
 			case InputActionPhase.Canceled:
 				if(controls.Ship.Accelerate.IsPressed()) {
-					engineParticles.Play();
-					engine.SetActive(true);
+					SetEngineActive(true);
 				}
 				break;
 		}
@@ -230,6 +253,7 @@ public class ShipInput : MonoBehaviour, ShipControls.IShipActions
 		);
 		bullet.GetComponent<Rigidbody2D>().velocity = rigidbody.velocity + (Vector2)transform.TransformDirection(bulletVelocity);
 		bullet.GetComponent<BulletManager>().damage = controller.bulletDamage;
+		AudioManager.PlaySound(bulletSound);
 	}
 
 
@@ -308,7 +332,7 @@ public class ShipInput : MonoBehaviour, ShipControls.IShipActions
 
 			rigidbody.velocity = Vector2.zero;
 			rigidbody.angularVelocity = 0;
-			acceleration = Vector2.zero;
+			SetEngineStrength(0);
 			angularAcceleration = 0;
 		}
 		public void OnWarpToCenter(InputAction.CallbackContext context) {
@@ -327,7 +351,7 @@ public class ShipInput : MonoBehaviour, ShipControls.IShipActions
 					transform.position + (Vector3)Utility.RandomWithinCircle(5, cometSpawnRadius),
 					cometPrefabs[randType].transform.rotation
 				);
-				child.GetComponent<Rigidbody2D>().velocity = Random.insideUnitCircle * Random.Range(0, 5);
+				child.GetComponent<Rigidbody2D>().velocity = Utility.RandomWithinCircle(5);
 			}
 		}
 	#endif

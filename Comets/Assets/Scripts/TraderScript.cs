@@ -12,36 +12,47 @@ public class TraderScript : MonoBehaviour, IResourceAdder, IResourceInventory
 	}
 
 
+	[Header("Objects")]
 	public TraderUI UI;
-	public GameObject gameOverlay;
+	public GameObject mapOverlay;
 	public CircleCollider2D deactivateArea;
 	public Suction suction;
-
-	public float reenableDelay;
-	public float ejectSpeed;
-
-	public ShipMode mode = ShipMode.Standyby;
-	
 	public ShipController ship;
 	public PolygonCollider2D shipCollider;
 
-	public Transform shipTransform { get => ship.transform; }
-	public ShipInventory inventory { get => ship.inventory; }
-	private new Rigidbody2D rigidbody  { get => ship.rigidbody; }
-	private ShipInput input { get => ship.input; }
+	[Header("Settings")]
+	public float reenableDelay;
+	public float ejectSpeed;
+	public bool startInTrader;
+	public float startDelay;
 
-	public uint resourceCount {get => resources.Count;}
+	public ShipMode mode = ShipMode.Standyby;
+	
+
+	[Header("Sounds")]
+	public Sound dockSound;
+	public Sound upgradeSound;
+	public Sound failSound;
+
+	[Header("Inventory")]
+	[SerializeField]
+	private ResourceDict resources = new ResourceDict();
 
 	public UIValue<float> copperAmount;
 	public UIValue<float> goldAmount;
 	public UIValue<float> platinumAmount;
 	public UIValue<float> plutoniumAmount;
 
-	[SerializeField]
-	private ResourceDict resources = new ResourceDict();
-
+	[Header("Upgrades")]
 	public List<Upgrade> startingUpgrades = new List<Upgrade>();
 	private List<Upgrade> upgrades = new List<Upgrade>();
+
+
+	public uint resourceCount {get => resources.Count;}
+	public Transform shipTransform { get => ship.transform; }
+	public ShipInventory inventory { get => ship.inventory; }
+	private new Rigidbody2D rigidbody  { get => ship.rigidbody; }
+	private ShipInput input { get => ship.input; }
 
 
 	void AddUpgrade(Upgrade upgrade) {
@@ -71,22 +82,32 @@ public class TraderScript : MonoBehaviour, IResourceAdder, IResourceInventory
 
 	void Start() {
 		suction.mask = LayerMask.GetMask("Ship");
+
 		SetUI();
 		foreach (var upgrade in startingUpgrades) {
-			AddUpgrade(upgrade);
+			AddUpgrade(Instantiate(upgrade));
+		}
+
+		if(startInTrader) {
+			rigidbody.velocity = Vector2.zero;
+			rigidbody.angularVelocity = 0;
+			rigidbody.transform.position = transform.position;
+			input.enabled = false;
+			ship.enabled = false;
+
+			mapOverlay.SetActive(false);
+			UI.gameObject.SetActive(false);
+
+			mode = ShipMode.Holding;
+
+    		Invoke("Leave", startDelay);
 		}
 	}
 
 
 	void Update() {
-		switch (mode)
-		{
-			case ShipMode.Standyby:
-				if (shipCollider != null && deactivateArea.IsTouching(shipCollider))
-				{
-					Dock();
-				}
-				break;
+		if(mode == ShipMode.Standyby && deactivateArea.IsTouching(shipCollider)) {
+			Dock();
 		}
 	}
 
@@ -106,7 +127,7 @@ public class TraderScript : MonoBehaviour, IResourceAdder, IResourceInventory
 	}
 
 
-	void Dock() {
+	public void Dock() {
 		if(ship != null) {
 			rigidbody.velocity = Vector2.zero;
 			rigidbody.angularVelocity = 0;
@@ -117,9 +138,11 @@ public class TraderScript : MonoBehaviour, IResourceAdder, IResourceInventory
 
 		UI.gameObject.SetActive(true);
 		UI.Select();
-		gameOverlay.SetActive(false);
+		mapOverlay.SetActive(false);
 		SellEverything();
 		Repair();
+
+		AudioManager.PlaySound(dockSound, this.gameObject);
 
 		mode = ShipMode.Holding;
 	}
@@ -137,14 +160,14 @@ public class TraderScript : MonoBehaviour, IResourceAdder, IResourceInventory
 		deactivateArea.enabled = false;
 		suction.enabled = false;
 		UI.gameObject.SetActive(false);
-		gameOverlay.SetActive(true);
+		mapOverlay.SetActive(true);
 
 		if(ship != null) {
 			ship.enabled = true;
 			rigidbody.velocity = Utility.RandomDirection() * ejectSpeed;
 			rigidbody.rotation = Vector2.SignedAngle(Vector2.up, rigidbody.velocity);
 		}
-		
+
 		mode = ShipMode.Ejecting;
 
     	Invoke("ReEnable", reenableDelay);
@@ -171,7 +194,13 @@ public class TraderScript : MonoBehaviour, IResourceAdder, IResourceInventory
 		if(upgrade == null) return;
 
 		ResourceGroup cost = upgrade.Cost;
-		if(resources < cost) return;
+		if (resources < cost)
+		{
+			AudioManager.PlaySound(failSound, this.gameObject);
+			return;
+		}
+		
+		AudioManager.PlaySound(upgradeSound);
 
 		resources -= cost;
 

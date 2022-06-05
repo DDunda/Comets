@@ -16,8 +16,8 @@ MonoBehaviour:
   baseCost:
     copper: 0
     gold: -10
-    platinum: -20
-    plutonium: -40
+    platinum: -30
+    plutonium: -70
   descriptionFormat: Upgrade damage from {0} to {1}
   modifier:
     multiplier: 2

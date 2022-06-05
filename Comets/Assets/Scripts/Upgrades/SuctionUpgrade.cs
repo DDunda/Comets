@@ -15,6 +15,10 @@ public class SuctionUpgrade : Upgrade
 	public override string Description { get => string.Format(descriptionFormat, ship.suction.radius, ship.suction.radius + RangeDelta); }
 	public override ResourceGroup Cost { get => (ResourceGroup)(costPerRange * (RangeDelta + totalDelta) + baseCost); }
 
+	void Start() {
+		totalDelta = 0;
+	}
+
 	public override Upgrade OnBuy() {
 		ship.suction.radius += RangeDelta;
 		totalDelta += RangeDelta;

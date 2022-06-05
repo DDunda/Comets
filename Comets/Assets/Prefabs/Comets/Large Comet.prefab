@@ -162,7 +162,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8fdd5c85e51bce34d94d01988f33adf0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 18f8902acaddc034faa628ec5bc75ea4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -188,9 +188,14 @@ MonoBehaviour:
   cometRenderer: {fileID: 3164087165264691904}
   cometRigidbody: {fileID: 3164087165264691919}
   explosionPrefab: {fileID: 420750666292363800, guid: ce54a02358aee674db1b7c66f22e276b, type: 3}
+  explosionSound: {fileID: 1960530355130686432, guid: 3798b6a26f6f91944ab97f8cef8caf76, type: 3}
   sprites:
     items:
-    - item: {fileID: 21300000, guid: 8fdd5c85e51bce34d94d01988f33adf0, type: 3}
+    - item: {fileID: 21300000, guid: 18f8902acaddc034faa628ec5bc75ea4, type: 3}
+      weight: 1
+    - item: {fileID: 21300000, guid: 3e9c2fbb8a798464aa4cbbd5b14cff4e, type: 3}
+      weight: 1
+    - item: {fileID: 21300000, guid: f99bb6917a884cd479dceb4358d213b6, type: 3}
       weight: 1
   lootTable: {fileID: 11400000, guid: b0f921464e2904b41abd5b1d3076d3ca, type: 2}
   rewardRange:
@@ -210,7 +215,8 @@ MonoBehaviour:
     max: 1.5
   splitSpeed: 2
   inheritSpeed: 1
-  health: 40
+  health: 60
+  explosiveDestroy: 0
 --- !u!50 &3164087165264691919
 Rigidbody2D:
   serializedVersion: 4

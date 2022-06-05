@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1564726452}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.25}
+  m_LocalPosition: {x: 0, y: 0, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 8015584604773040780}
   - component: {fileID: -4918617574281955517}
   m_Layer: 3
-  m_Name: Small Comet
+  m_Name: Small Comet (Variant 1)
   m_TagString: Comet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,8 +114,8 @@ Transform:
   m_GameObject: {fileID: 8015584604773040768}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.85, y: 0.85, z: 0.85}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1564726453}
   m_Father: {fileID: 0}
@@ -162,7 +162,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a12a82d8ae6b3fc4895ecc986a426351, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 223e188b8598cec46900506785053441, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -188,9 +188,10 @@ MonoBehaviour:
   cometRenderer: {fileID: 8015584604773040770}
   cometRigidbody: {fileID: 8015584604773040781}
   explosionPrefab: {fileID: 2507433091108729134, guid: 4a2dece88e1f63a46b921289669ee202, type: 3}
+  explosionSound: {fileID: 1960530355130686432, guid: 2993f82b48ae3454480a29cb1787c942, type: 3}
   sprites:
     items:
-    - item: {fileID: 21300000, guid: a12a82d8ae6b3fc4895ecc986a426351, type: 3}
+    - item: {fileID: 21300000, guid: 223e188b8598cec46900506785053441, type: 3}
       weight: 1
   lootTable: {fileID: 11400000, guid: 489fcf020c8509d4395c67aea0322851, type: 2}
   rewardRange:
@@ -211,6 +212,7 @@ MonoBehaviour:
   splitSpeed: 2
   inheritSpeed: 1
   health: 10
+  explosiveDestroy: 0
 --- !u!50 &8015584604773040781
 Rigidbody2D:
   serializedVersion: 4
@@ -247,7 +249,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.425
 --- !u!114 &-4918617574281955517
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UpgradeScript : MonoBehaviour
@@ -9,7 +10,7 @@ public class UpgradeScript : MonoBehaviour
 	public UIValue<float> goldCost;
 	public UIValue<float> platinumCost;
 	public UIValue<float> plutoniumCost;
-	public Selectable button;
+	public Button button;
 
 	private TraderUI trader = null;
 	private Upgrade upgrade = null;
